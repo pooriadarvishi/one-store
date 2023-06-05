@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/feature/category" />
             <option value="$PROJECT_DIR$/feature/home" />
             <option value="$PROJECT_DIR$/feature/products" />
+            <option value="$PROJECT_DIR$/feature/search" />
           </set>
         </option>
       </GradleProjectSettings>
