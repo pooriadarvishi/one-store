@@ -18,7 +18,7 @@ include(":feature:home")
 include(":feature:category")
 include(":feature:products")
 include(":feature:search")
-
+include(":feature:profile")
 include(":feature:details")
 include(":core:network")
 include(":core:local")
