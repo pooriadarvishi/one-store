@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "one-store"
 include(":app")
+include(":feature:home")
+include(":feature:category")
