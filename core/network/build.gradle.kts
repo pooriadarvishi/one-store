@@ -42,4 +42,5 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.square.okhttp.core)
     implementation(libs.square.okhttp.loggonginterceptor)
+    implementation(libs.retrofit.converter.gson)
 }
