@@ -1,24 +1,44 @@
 package com.core.network
 
 import com.core.network.model.category.Categories
+import com.core.network.model.details.ProductDetails
 import com.core.network.model.products.Products
 import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ProductsService {
-    @GET("v3/products")
-    fun getListProducts() : Products
+    @GET("products")
+    suspend fun getListProducts(
+        @Query("page") page: Int, @Query("orderby") orderBy: String
+    ): Products
 
-    @GET("v3/products/reviews/{category_id}")
-    fun getListProductsByCategory() : Products
+    @GET("products")
+    suspend fun getListProductsByCategory(
+        @Query("category") category: Int,
+        @Query("page") page: Int,
+        @Query("orderby") orderBy: String,
+    ): Products
 
-    @GET("v3/products/categories")
-    fun getListCategories() : Categories
+    @GET("products/categories")
+    suspend fun getListCategories(
+        @Query("page") page: Int,
+    ): Categories
 
-    @GET("v3/products")
-    fun searchProducts() : Products
+    @GET("products")
+    suspend fun searchProducts(
+        @Query("search") querySearch: String,
+        @Query("page") page: Int,
+        @Query("orderby") orderBy: String,
+    ): Products
+
+    @GET("products/categories")
+    suspend fun searchCategories(
+        @Query("search") querySearch: String,
+        @Query("page") page: Int,
+    ): Categories
 
 
-    //TODO
-    @GET("v3/products")
-    fun getProductDetails() : String
+    @GET("products/{product_id}")
+    suspend fun getProductDetails(@Path("product_id") productId: Int): ProductDetails
 }
