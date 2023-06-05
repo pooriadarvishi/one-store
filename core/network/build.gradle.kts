@@ -42,5 +42,6 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.retrofit.core)
     implementation(libs.gson)
-
+    implementation(libs.square.okhttp.core)
+    implementation(libs.square.okhttp.loggonginterceptor)
 }
