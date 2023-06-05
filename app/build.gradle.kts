@@ -34,11 +34,11 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.google.materia)
+    implementation(libs.androidx.constraintlayout)
+    testImplementation(libs.junit4)
+    androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
