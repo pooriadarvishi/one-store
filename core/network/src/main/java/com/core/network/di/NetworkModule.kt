@@ -6,6 +6,7 @@ import com.core.network.util.provideApiService
 import com.core.network.util.qualifier.BaseUrl
 import com.core.network.util.qualifier.ConsumerKey
 import com.core.network.util.qualifier.ConsumerSecret
+import com.core.network.util.qualifier.PerPage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,20 +40,27 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    @PerPage
+    fun providePerPage(): String = Service.PER_PAGE_VAlUE
+
+
+    @Provides
+    @Singleton
     fun provideGsonConverter(): GsonConverterFactory = GsonConverterFactory.create()
 
     @Provides
     @Singleton
     fun provideInterceptor(
         @ConsumerKey consumerKey: String,
-        @ConsumerSecret consumerSecret: String
+        @ConsumerSecret consumerSecret: String,
+        @PerPage perpage: String,
     ): Interceptor = Interceptor { chain ->
         val url = chain.request()
             .url
             .newBuilder()
             .addQueryParameter(Service.CONSUMER_KEY, consumerKey)
             .addQueryParameter(Service.CONSUMER_SECRET, consumerSecret)
-            .addQueryParameter(Service.PER_PAGE, Service.PER_PAGE_VAlUE)
+            .addQueryParameter(Service.PER_PAGE, perpage)
             .build()
         val request = chain.request()
             .newBuilder()
