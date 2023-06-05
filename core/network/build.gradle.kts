@@ -31,9 +31,14 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies{
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+    implementation(libs.retrofit.core)
+
 }
