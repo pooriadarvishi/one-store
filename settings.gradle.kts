@@ -30,3 +30,4 @@ include(":core:local")
 
 
 include(":core:common:common-main")
+include(":core:common:model")
