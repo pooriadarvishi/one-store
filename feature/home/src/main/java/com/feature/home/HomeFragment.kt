@@ -19,7 +19,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater)
-        homeViewModel.getData()
 
         return binding.root
     }

@@ -1,6 +1,5 @@
 package com.feature.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,26 +14,54 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val productRepository: ProductRepository,
-    private val orderingFilters: OrderingFilters
+    private val productRepository: ProductRepository, private val orderingFilters: OrderingFilters
 ) : ViewModel() {
-    private val _data = MutableLiveData<Result<List<ProductsItem>>>()
-    val data: LiveData<Result<List<ProductsItem>>> = _data
+    private val _lastedProducts = MutableLiveData<Result<List<ProductsItem>>>()
+    val lastedProducts: LiveData<Result<List<ProductsItem>>> = _lastedProducts
+
+    private val _popularityProducts = MutableLiveData<Result<List<ProductsItem>>>()
+    val popularityProducts: LiveData<Result<List<ProductsItem>>> = _popularityProducts
 
 
-    fun getData() {
+    private val _bestProducts = MutableLiveData<Result<List<ProductsItem>>>()
+    val bestProducts: LiveData<Result<List<ProductsItem>>> = _bestProducts
+
+
+    init {
+        getLastedProducts()
+        getPopularityProducts()
+        getBestProducts()
+    }
+
+    private fun getLastedProducts() {
         viewModelScope.launch {
             productRepository.getListProducts(
-                1,
-                orderingFilters.orderByPrice(),
-                orderingFilters.orderDefault()
-            ).collect {
-                when (it) {
-                    is Result.Error -> Log.e("RESULT", "getData: ${it.exception?.message}")
-                    Result.Loading -> Log.e("RESULT", "getData: loading")
-                    is Result.Success -> Log.e("RESULT", "getData: ${it.data}")
-                }
+                1, orderingFilters.orderByPrice(), orderingFilters.orderDefault()
+            ).collect { resultProductsItems ->
+                _lastedProducts.postValue(resultProductsItems)
             }
         }
     }
+
+    private fun getPopularityProducts() {
+        viewModelScope.launch {
+            productRepository.getListProducts(
+                1, orderingFilters.orderByPopularity(), orderingFilters.orderDefault()
+            ).collect { resultProductsItems ->
+                _popularityProducts.postValue(resultProductsItems)
+            }
+        }
+    }
+
+    private fun getBestProducts() {
+        viewModelScope.launch {
+            productRepository.getListProducts(
+                1, orderingFilters.orderByPopularity(), orderingFilters.orderDefault()
+            ).collect { resultProductsItems ->
+                _bestProducts.postValue(resultProductsItems)
+            }
+        }
+    }
+
+
 }
