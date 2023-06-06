@@ -13,11 +13,11 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
-class ProductNetworkDataSourceImpl(
-    @Inject @Singleton private val productsService: ProductsService,
-    @Inject @Singleton private val productDtoToProduct: ProductDtoToProduct,
-    @Inject @Singleton @Dispatcher(KinDispatchers.IO) private val ioDispatchers: CoroutineDispatcher,
-    @Inject @Singleton @Dispatcher(KinDispatchers.Default) private val defaultDispatchers: CoroutineDispatcher,
+class ProductNetworkDataSourceImpl @Inject @Singleton constructor(
+     private val productsService: ProductsService,
+     private val productDtoToProduct: ProductDtoToProduct,
+     @Dispatcher(KinDispatchers.IO) private val ioDispatchers: CoroutineDispatcher,
+     @Dispatcher(KinDispatchers.Default) private val defaultDispatchers: CoroutineDispatcher,
 ) : ProductNetworkDataSource {
     override suspend fun getListProducts(
         page: Int, orderBy: String, order: String

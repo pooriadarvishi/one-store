@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
-class ProductRepositoryImpl(
-    @Inject @Singleton private val productNetworkDataSourceImpl: ProductNetworkDataSourceImpl
+class ProductRepositoryImpl @Inject @Singleton constructor(
+    private val productNetworkDataSourceImpl: ProductNetworkDataSourceImpl
 ) : ProductRepository {
     override suspend fun getListProducts(
         page: Int,
