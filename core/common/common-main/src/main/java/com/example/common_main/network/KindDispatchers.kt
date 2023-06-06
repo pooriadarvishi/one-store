@@ -7,6 +7,6 @@ import javax.inject.Qualifier
 annotation class Dispatcher(val niaDispatcher: KinDispatchers)
 
 enum class KinDispatchers {
-    Default,
+    DEFAULT,
     IO,
 }

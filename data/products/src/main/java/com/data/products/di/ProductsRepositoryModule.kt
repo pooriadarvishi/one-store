@@ -1,5 +1,6 @@
 package com.data.products.di
 
+import com.core.common.legacy.mappers.DetailsDtoToDetails
 import com.core.common.legacy.mappers.ProductDtoToProduct
 import com.core.network.ProductsService
 import com.data.products.data.network.ProductNetworkDataSource
@@ -25,10 +26,11 @@ object ProductsRepositoryModule {
     fun provideProductNetworkDataSource(
         productsService: ProductsService,
         productDtoToProduct: ProductDtoToProduct,
+        detailsDtoToDetails: DetailsDtoToDetails,
         @Dispatcher(KinDispatchers.IO) ioDispatchers: CoroutineDispatcher,
-        @Dispatcher(KinDispatchers.Default) defaultDispatchers: CoroutineDispatcher,
+        @Dispatcher(KinDispatchers.DEFAULT) defaultDispatchers: CoroutineDispatcher,
     ): ProductNetworkDataSource = ProductNetworkDataSourceImpl(
-        productsService, productDtoToProduct, ioDispatchers, defaultDispatchers
+        productsService, productDtoToProduct, detailsDtoToDetails, ioDispatchers, defaultDispatchers
     )
 
     @Provides
