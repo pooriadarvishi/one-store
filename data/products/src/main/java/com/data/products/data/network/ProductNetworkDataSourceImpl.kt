@@ -4,26 +4,22 @@ import com.core.common.legacy.mappers.ProductDtoToProduct
 import com.core.common.legacy.mappers.map
 import com.core.common.model.models.products.ProductsItem
 import com.core.network.ProductsService
-import com.example.common_main.network.Dispatcher
-import com.example.common_main.network.KinDispatchers
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
-class ProductNetworkDataSourceImpl @Inject @Singleton constructor(
-     private val productsService: ProductsService,
-     private val productDtoToProduct: ProductDtoToProduct,
-     @Dispatcher(KinDispatchers.IO) private val ioDispatchers: CoroutineDispatcher,
-     @Dispatcher(KinDispatchers.Default) private val defaultDispatchers: CoroutineDispatcher,
+class ProductNetworkDataSourceImpl(
+    private val productsService: ProductsService,
+    private val productDtoToProduct: ProductDtoToProduct,
+    private val ioDispatchers: CoroutineDispatcher,
+    private val defaultDispatchers: CoroutineDispatcher,
 ) : ProductNetworkDataSource {
     override suspend fun getListProducts(
         page: Int, orderBy: String, order: String
     ): Flow<List<ProductsItem>> = withContext(ioDispatchers) {
-        productsService.getListProducts(page, orderBy, order).map { productsItemsDto ->
-            productDtoToProduct.map(productsItemsDto)
+        flow {
+            emit(productDtoToProduct.map(productsService.getListProducts(page, orderBy, order)))
         }
     }
 
@@ -31,20 +27,29 @@ class ProductNetworkDataSourceImpl @Inject @Singleton constructor(
     override suspend fun getListProductsByCategory(
         category: Int, page: Int, orderBy: String, order: String
     ): Flow<List<ProductsItem>> = withContext(ioDispatchers) {
-        productsService.getListProductsByCategory(
-            category, page, orderBy, order
-        ).map { productsItemsDto ->
-            productDtoToProduct.map(productsItemsDto)
+        flow {
+            emit(
+                productDtoToProduct.map(
+                    productsService.getListProductsByCategory(
+                        category, page, orderBy, order
+                    )
+                )
+            )
         }
     }
+
 
     override suspend fun searchProducts(
         querySearch: String, page: Int, orderBy: String, order: String
     ): Flow<List<ProductsItem>> = withContext(ioDispatchers) {
-        productsService.searchProducts(
-            querySearch, page, orderBy, order
-        ).map { productsItemsDto ->
-            productDtoToProduct.map(productsItemsDto)
+        flow {
+            emit(
+                productDtoToProduct.map(
+                    productsService.searchProducts(
+                        querySearch, page, orderBy, order
+                    )
+                )
+            )
         }
     }
 }

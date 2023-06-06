@@ -5,14 +5,14 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface ProductNetworkDataSource {
-    suspend fun getListProducts(
+     suspend fun getListProducts(
         page: Int,
         orderBy: String,
         order: String
     ): Flow<List<ProductsItem>>
 
 
-    suspend fun getListProductsByCategory(
+     suspend fun getListProductsByCategory(
         category: Int,
         page: Int,
         orderBy: String,
@@ -20,7 +20,7 @@ interface ProductNetworkDataSource {
     ): Flow<List<ProductsItem>>
 
 
-    suspend fun searchProducts(
+     suspend fun searchProducts(
         querySearch: String,
         page: Int,
         orderBy: String,
