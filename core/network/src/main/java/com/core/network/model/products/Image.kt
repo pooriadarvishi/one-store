@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Image(
     @SerializedName("alt")
-    val alt: Int?,
+    val alt: String?,
     @SerializedName("date_created")
     val dateCreated: String?,
     @SerializedName("date_created_gmt")
