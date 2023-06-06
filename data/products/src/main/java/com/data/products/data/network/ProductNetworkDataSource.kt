@@ -1,5 +1,6 @@
 package com.data.products.data.network
 
+import com.core.common.model.models.details.ProductDetails
 import com.core.common.model.models.products.ProductsItem
 import kotlinx.coroutines.flow.Flow
 
@@ -26,5 +27,9 @@ interface ProductNetworkDataSource {
         orderBy: String,
         order: String
     ): Flow<List<ProductsItem>>
+
+
+    suspend fun getProductDetails(productId: Int): Flow<ProductDetails>
+
 
 }
