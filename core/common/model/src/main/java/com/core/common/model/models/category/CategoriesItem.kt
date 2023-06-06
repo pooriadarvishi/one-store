@@ -1,14 +1,9 @@
 package com.core.common.model.models.category
 
 data class CategoriesItem(
-    val _links: Links?,
-    val count: Int?,
-    val description: String?,
-    val display: String?,
-    val id: Int?,
-    val image: Image?,
-    val menu_order: Int?,
+    val id: Int,
     val name: String?,
-    val parent: Int?,
-    val slug: String?
+    val image: Image?,
+    val description: String?,
+    val count: Int?,
 )

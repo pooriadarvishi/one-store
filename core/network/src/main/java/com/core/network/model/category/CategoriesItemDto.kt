@@ -11,7 +11,7 @@ data class CategoriesItemDto(
     @SerializedName("display")
     val display: String?,
     @SerializedName("id")
-    val id: Int?,
+    val id: Int,
     @SerializedName("image")
     val image: Image?,
     @SerializedName("_links")
@@ -19,7 +19,7 @@ data class CategoriesItemDto(
     @SerializedName("menu_order")
     val menuOrder: Int?,
     @SerializedName("name")
-    val name: String?,
+    val name: String,
     @SerializedName("parent")
     val parent: Int?,
     @SerializedName("slug")
