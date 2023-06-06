@@ -17,29 +17,22 @@ class DetailsDtoToDetails : Mapper<ProductDetailsDto, ProductDetails> {
             regularPrice,
             salePrice,
             averageRating,
-            categories.asListOfUiModel { cateGoryDto ->
-                with(cateGoryDto) {
-                    Category(
-                        id, name, slug
-                    )
-                }
+            categories.asListOfUiModel {
+                Category(
+                    id, name
+                )
             },
-            images.asListOfUiModel { imageDto ->
-                with(imageDto) {
-                    Image(
-                        id, name, src
-                    )
-                }
-
+            images.asListOfUiModel {
+                Image(
+                    id, name, src
+                )
             },
             ratingCount,
             shortDescription,
-            tags.asListOfUiModel { tagDto ->
-                with(tagDto) {
-                    Tag(
-                        id, name, slug
-                    )
-                }
+            tags.asListOfUiModel {
+                Tag(
+                    id, name
+                )
             },
             relatedIds ?: emptyList(),
             weight,
