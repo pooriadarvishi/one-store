@@ -3,8 +3,9 @@ package com.core.common.enums.common
 import com.core.common.enums.enums.OrderByFilter
 import com.core.common.enums.enums.OrderFilter
 
+
 class OrderingFilters {
-    fun orderByDefault() = OrderByFilter.DATA
+    fun orderByDefault() = OrderByFilter.ID
     fun orderByData() = OrderByFilter.DATA
     fun orderById() = OrderByFilter.ID
     fun orderByInclude() = OrderByFilter.INCLUDE
