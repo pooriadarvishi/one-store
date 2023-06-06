@@ -4,6 +4,7 @@ import com.core.common.enums.enums.OrderByFilter
 import com.core.common.enums.enums.OrderFilter
 
 class OrderingFilters {
+    fun orderByDefault() = OrderByFilter.DATA
     fun orderByData() = OrderByFilter.DATA
     fun orderById() = OrderByFilter.ID
     fun orderByInclude() = OrderByFilter.INCLUDE
@@ -13,6 +14,7 @@ class OrderingFilters {
     fun orderByPopularity() = OrderByFilter.POPULARITY
     fun orderByRating() = OrderByFilter.RATING
 
+    fun orderDefault() = OrderFilter.DESC
     fun descendingOrder() = OrderFilter.DESC
     fun ascendingOrder() = OrderFilter.ASC
 }
