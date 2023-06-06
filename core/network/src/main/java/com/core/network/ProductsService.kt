@@ -10,7 +10,9 @@ import retrofit2.http.Query
 interface ProductsService {
     @GET("products")
     suspend fun getListProducts(
-        @Query("page") page: Int, @Query("orderby") orderBy: String
+        @Query("page") page: Int,
+        @Query("orderby") orderBy: String,
+        @Query("order") order: String
     ): List<ProductsResponseItemDto>
 
     @GET("products")
@@ -18,6 +20,7 @@ interface ProductsService {
         @Query("category") category: Int,
         @Query("page") page: Int,
         @Query("orderby") orderBy: String,
+        @Query("order") order: String
     ): List<ProductsResponseItemDto>
 
     @GET("products/categories")
@@ -30,6 +33,7 @@ interface ProductsService {
         @Query("search") querySearch: String,
         @Query("page") page: Int,
         @Query("orderby") orderBy: String,
+        @Query("order") order: String
     ): List<ProductsResponseItemDto>
 
     @GET("products/categories")
