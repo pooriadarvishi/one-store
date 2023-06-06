@@ -37,6 +37,9 @@ android {
     kapt {
         correctErrorTypes = true
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {

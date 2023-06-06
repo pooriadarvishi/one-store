@@ -1,6 +1,10 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 plugins {
     id("com.android.library")
+    id("com.google.dagger.hilt.android")
     kotlin("android")
+    kotlin("kapt")
 }
 
 android {
@@ -33,4 +37,9 @@ android {
 dependencies {
     implementation(project(":core:common:model"))
     implementation(project(":core:network"))
+
+
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 }

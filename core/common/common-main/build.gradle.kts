@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.core.common.common-main"
+    namespace = "com.core.common.commonmain"
     compileSdk = 33
 
     defaultConfig {
