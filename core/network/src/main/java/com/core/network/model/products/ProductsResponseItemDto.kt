@@ -3,7 +3,7 @@ package com.core.network.model.products
 
 import com.google.gson.annotations.SerializedName
 
-data class ProductsResponseItem(
+data class ProductsResponseItemDto(
     @SerializedName("attributes")
     val attributes: List<Any?>?,
     @SerializedName("average_rating")
