@@ -1,6 +1,10 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 plugins {
     id("com.android.application")
+    id("com.google.dagger.hilt.android")
     kotlin("android")
+    kotlin("kapt")
 }
 
 android {
@@ -30,9 +34,15 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
+    implementation(project(":feature:home"))
+
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -41,4 +51,6 @@ dependencies {
     testImplementation(libs.junit4)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 }
