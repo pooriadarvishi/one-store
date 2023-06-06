@@ -19,7 +19,7 @@ data class ProductDetailsDto(
     @SerializedName("catalog_visibility")
     val catalogVisibility: String?,
     @SerializedName("categories")
-    val categories: List<Category?>?,
+    val categories: List<Category>?,
     @SerializedName("cross_sell_ids")
     val crossSellIds: List<Any?>?,
     @SerializedName("date_created")
@@ -61,9 +61,9 @@ data class ProductDetailsDto(
     @SerializedName("has_options")
     val hasOptions: Boolean?,
     @SerializedName("id")
-    val id: Int?,
+    val id: Int,
     @SerializedName("images")
-    val images: List<Image?>?,
+    val images: List<Image>?,
     @SerializedName("_links")
     val links: Links?,
     @SerializedName("low_stock_amount")
@@ -75,7 +75,7 @@ data class ProductDetailsDto(
     @SerializedName("meta_data")
     val metaData: List<Any?>?,
     @SerializedName("name")
-    val name: String?,
+    val name: String,
     @SerializedName("on_sale")
     val onSale: Boolean?,
     @SerializedName("parent_id")
@@ -95,7 +95,7 @@ data class ProductDetailsDto(
     @SerializedName("regular_price")
     val regularPrice: String?,
     @SerializedName("related_ids")
-    val relatedIds: List<Int?>?,
+    val relatedIds: List<Int>?,
     @SerializedName("reviews_allowed")
     val reviewsAllowed: Boolean?,
     @SerializedName("sale_price")
@@ -123,7 +123,7 @@ data class ProductDetailsDto(
     @SerializedName("stock_status")
     val stockStatus: String?,
     @SerializedName("tags")
-    val tags: List<Tag?>?,
+    val tags: List<Tag>?,
     @SerializedName("tax_class")
     val taxClass: String?,
     @SerializedName("tax_status")
