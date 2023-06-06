@@ -1,13 +1,14 @@
 package com.data.products.data.network
 
-import com.core.network.model.products.ProductsResponseItemDto
+import com.core.common.model.models.products.ProductsItem
+
 
 interface ProductNetworkDataSource {
     suspend fun getListProducts(
         page: Int,
         orderBy: String,
         order: String
-    ): List<ProductsResponseItemDto>
+    ): List<ProductsItem>
 
 
     suspend fun getListProductsByCategory(
@@ -15,7 +16,7 @@ interface ProductNetworkDataSource {
         page: Int,
         orderBy: String,
         order: String
-    ): List<ProductsResponseItemDto>
+    ): List<ProductsItem>
 
 
     suspend fun searchProducts(
@@ -23,6 +24,6 @@ interface ProductNetworkDataSource {
         page: Int,
         orderBy: String,
         order: String
-    ): List<ProductsResponseItemDto>
+    ): List<ProductsItem>
 
 }
