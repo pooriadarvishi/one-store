@@ -4,22 +4,20 @@ import com.core.common.enums.common.pureOrder
 import com.core.common.enums.enums.OrderByFilter
 import com.core.common.enums.enums.OrderFilter
 import com.core.common.model.models.products.ProductsItem
-import com.data.products.data.network.ProductNetworkDataSourceImpl
+import com.data.products.data.network.ProductNetworkDataSource
 import com.example.common_main.result.Result
 import com.example.common_main.result.asResult
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
-import javax.inject.Singleton
 
-class ProductRepositoryImpl @Inject @Singleton constructor(
-    private val productNetworkDataSourceImpl: ProductNetworkDataSourceImpl
+class ProductRepositoryImpl(
+    private val productNetworkDataSource: ProductNetworkDataSource
 ) : ProductRepository {
     override suspend fun getListProducts(
         page: Int,
         orderBy: OrderByFilter,
         order: OrderFilter
     ): Flow<Result<List<ProductsItem>>> =
-        productNetworkDataSourceImpl.getListProducts(page, pureOrder(orderBy), pureOrder(order))
+        productNetworkDataSource.getListProducts(page, pureOrder(orderBy), pureOrder(order))
             .asResult()
 
     override suspend fun getListProductsByCategory(
@@ -28,7 +26,7 @@ class ProductRepositoryImpl @Inject @Singleton constructor(
         orderBy: OrderByFilter,
         order: OrderFilter
     ): Flow<Result<List<ProductsItem>>> =
-        productNetworkDataSourceImpl.getListProductsByCategory(
+        productNetworkDataSource.getListProductsByCategory(
             category, page,
             pureOrder(orderBy),
             pureOrder(order)
@@ -39,7 +37,7 @@ class ProductRepositoryImpl @Inject @Singleton constructor(
         page: Int,
         orderBy: OrderByFilter,
         order: OrderFilter
-    ): Flow<Result<List<ProductsItem>>> = productNetworkDataSourceImpl.searchProducts(
+    ): Flow<Result<List<ProductsItem>>> = productNetworkDataSource.searchProducts(
         querySearch, page,
         pureOrder(orderBy),
         pureOrder(order)

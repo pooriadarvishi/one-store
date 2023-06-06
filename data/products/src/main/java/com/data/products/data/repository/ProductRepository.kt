@@ -8,14 +8,14 @@ import com.example.common_main.result.Result
 
 
 interface ProductRepository {
-    suspend fun getListProducts(
+     suspend fun getListProducts(
         page: Int,
         orderBy: OrderByFilter,
         order: OrderFilter
     ): Flow<Result<List<ProductsItem>>>
 
 
-    suspend fun getListProductsByCategory(
+     suspend fun getListProductsByCategory(
         category: Int,
         page: Int,
         orderBy: OrderByFilter,
@@ -23,7 +23,7 @@ interface ProductRepository {
     ): Flow<Result<List<ProductsItem>>>
 
 
-    suspend fun searchProducts(
+     suspend fun searchProducts(
         querySearch: String,
         page: Int,
         orderBy: OrderByFilter,
