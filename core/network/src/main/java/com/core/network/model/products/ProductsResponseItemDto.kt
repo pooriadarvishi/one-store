@@ -61,9 +61,9 @@ data class ProductsResponseItemDto(
     @SerializedName("has_options")
     val hasOptions: Boolean?,
     @SerializedName("id")
-    val id: Int?,
+    val id: Int,
     @SerializedName("images")
-    val images: List<Image?>?,
+    val images: List<Image>?,
     @SerializedName("_links")
     val links: Links?,
     @SerializedName("low_stock_amount")
