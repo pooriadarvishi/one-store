@@ -7,6 +7,8 @@ import com.core.network.ProductsService
 import com.example.common_main.network.Dispatcher
 import com.example.common_main.network.KinDispatchers
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -19,28 +21,30 @@ class ProductNetworkDataSourceImpl(
 ) : ProductNetworkDataSource {
     override suspend fun getListProducts(
         page: Int, orderBy: String, order: String
-    ): List<ProductsItem> = withContext(ioDispatchers) {
-        productDtoToProduct.map(productsService.getListProducts(page, orderBy, order))
+    ): Flow<List<ProductsItem>> = withContext(ioDispatchers) {
+        productsService.getListProducts(page, orderBy, order).map { productsItemsDto ->
+            productDtoToProduct.map(productsItemsDto)
+        }
     }
 
 
     override suspend fun getListProductsByCategory(
         category: Int, page: Int, orderBy: String, order: String
-    ): List<ProductsItem> = withContext(ioDispatchers) {
-        productDtoToProduct.map(
-            productsService.getListProductsByCategory(
-                category, page, orderBy, order
-            )
-        )
+    ): Flow<List<ProductsItem>> = withContext(ioDispatchers) {
+        productsService.getListProductsByCategory(
+            category, page, orderBy, order
+        ).map { productsItemsDto ->
+            productDtoToProduct.map(productsItemsDto)
+        }
     }
 
     override suspend fun searchProducts(
         querySearch: String, page: Int, orderBy: String, order: String
-    ): List<ProductsItem> = withContext(ioDispatchers) {
-        productDtoToProduct.map(
-            productsService.searchProducts(
-                querySearch, page, orderBy, order
-            )
-        )
+    ): Flow<List<ProductsItem>> = withContext(ioDispatchers) {
+        productsService.searchProducts(
+            querySearch, page, orderBy, order
+        ).map { productsItemsDto ->
+            productDtoToProduct.map(productsItemsDto)
+        }
     }
 }
