@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.core.network"
+    namespace = "com.data.product"
     compileSdk = 33
 
     defaultConfig {
