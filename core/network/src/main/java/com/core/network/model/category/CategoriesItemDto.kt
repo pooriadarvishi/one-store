@@ -3,7 +3,7 @@ package com.core.network.model.category
 
 import com.google.gson.annotations.SerializedName
 
-data class CategoriesItem(
+data class CategoriesItemDto(
     @SerializedName("count")
     val count: Int?,
     @SerializedName("description")
