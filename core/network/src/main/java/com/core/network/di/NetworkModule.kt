@@ -100,7 +100,7 @@ object NetworkModule {
         .Builder()
         .baseUrl(baseUrl)
         .client(okHttpClient)
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(gsonConverter)
         .build()
 
     @Provides
