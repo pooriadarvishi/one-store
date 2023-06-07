@@ -10,17 +10,15 @@ import java.util.concurrent.TimeUnit
 
 abstract class InteractResult<P, Q> {
     operator fun invoke(
-        params: P,
-        timeoutMs: Long = defaultTimeoutMs
+        params: P, timeoutMs: Long = defaultTimeoutMs
     ): Flow<InteractResultState<Q>> =
 
         doWork(params).map { q ->
             withTimeout(timeoutMs) {
-                InteractResultState.Success(q)
+                InteractResultState.Success(q) as InteractResultState<Q>
             }
 
-        }.catch { InteractResultState.Error }
-            .onStart { InteractResultState.Loading }
+        }.catch { emit(InteractResultState.Error) }.onStart { emit(InteractResultState.Loading) }
 
 
     companion object {
