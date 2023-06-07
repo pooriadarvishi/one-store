@@ -16,7 +16,6 @@ class ProductNetworkDataSourceImpl(
     private val productDtoToProduct: ProductDtoToProduct,
     private val detailsDtoToDetails: DetailsDtoToDetails,
     private val ioDispatchers: CoroutineDispatcher,
-    private val defaultDispatchers: CoroutineDispatcher,
 ) : ProductNetworkDataSource {
     override suspend fun getListProducts(
         page: Int, orderBy: String, order: String

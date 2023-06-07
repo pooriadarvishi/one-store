@@ -26,12 +26,10 @@ object CategoryRepositoryModule {
         productsService: ProductsService,
         categoriesDtoToCategories: CategoriesDtoToCategories,
         @Dispatcher(KinDispatchers.IO) ioDispatchers: CoroutineDispatcher,
-        @Dispatcher(KinDispatchers.IO) defaultDispatchers: CoroutineDispatcher,
     ): CategoryNetworkDataSource = CategoryNetworkDataSourceImpl(
         productsService,
         categoriesDtoToCategories,
-        ioDispatchers,
-        defaultDispatchers
+        ioDispatchers
     )
 
 

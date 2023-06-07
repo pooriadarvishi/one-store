@@ -13,7 +13,6 @@ class CategoryNetworkDataSourceImpl(
     private val productsService: ProductsService,
     private val categoriesDtoToCategories: CategoriesDtoToCategories,
     private val ioDispatchers: CoroutineDispatcher,
-    private val defaultDispatchers: CoroutineDispatcher,
 ) : CategoryNetworkDataSource {
     override suspend fun getListCategories(page: Int): Flow<List<CategoriesItem>> =
         withContext(ioDispatchers) {

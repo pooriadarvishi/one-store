@@ -28,9 +28,8 @@ object ProductsRepositoryModule {
         productDtoToProduct: ProductDtoToProduct,
         detailsDtoToDetails: DetailsDtoToDetails,
         @Dispatcher(KinDispatchers.IO) ioDispatchers: CoroutineDispatcher,
-        @Dispatcher(KinDispatchers.DEFAULT) defaultDispatchers: CoroutineDispatcher,
     ): ProductNetworkDataSource = ProductNetworkDataSourceImpl(
-        productsService, productDtoToProduct, detailsDtoToDetails, ioDispatchers, defaultDispatchers
+        productsService, productDtoToProduct, detailsDtoToDetails, ioDispatchers
     )
 
     @Provides
