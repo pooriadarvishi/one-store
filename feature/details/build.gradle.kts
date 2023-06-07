@@ -47,7 +47,7 @@ dependencies {
     implementation(project(":core:common:model"))
     implementation(project(":core:common:enums"))
     implementation(project(":core:common:legacy"))
-    implementation(project(":data:products"))
+    implementation(project(":domain:common-main"))
 
 
 
