@@ -41,9 +41,12 @@ dependencies {
     implementation(project(":data:category"))
     implementation(project(":data:products"))
     implementation(project(":core:common:common-main"))
+    implementation(project(":core:common:model"))
+    implementation(project(":core:common:enums"))
 
 
 
     implementation(libs.hilt.android)
+
     kapt(libs.hilt.compiler)
 }
