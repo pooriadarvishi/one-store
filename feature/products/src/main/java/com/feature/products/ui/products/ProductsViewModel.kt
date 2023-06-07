@@ -7,20 +7,25 @@ import androidx.lifecycle.viewModelScope
 import com.core.common.enums.enums.OrderByFilter
 import com.core.common.enums.enums.OrderFilter
 import com.core.common.model.models.products.ProductsItem
-import com.data.products.data.repository.ProductRepository
-import com.example.common_main.result.ResponseState
+import com.domain.commonmain.interact_result.InteractResultState
+import com.domain.commonmain.interactors.GetListProductsByCategoryUseCase
+import com.domain.commonmain.interactors.GetListProductsUseCase
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ProductsViewModel @Inject constructor(private val productRepository: ProductRepository) :
+class ProductsViewModel @Inject constructor(
+    private val getListProductsUseCase: GetListProductsUseCase,
+    private val getListProductsByCategoryUseCase: GetListProductsByCategoryUseCase
+) :
     ViewModel() {
-    private val _products = MutableLiveData<ResponseState<List<ProductsItem>>>()
-    val products: LiveData<ResponseState<List<ProductsItem>>> = _products
+    private val _products = MutableLiveData<InteractResultState<List<ProductsItem>>>()
+    val products: LiveData<InteractResultState<List<ProductsItem>>> = _products
 
     fun getListProductByFeature(page: Int, orderBy: OrderByFilter, order: OrderFilter) {
         viewModelScope.launch {
-            productRepository.getListProducts(page, orderBy, order)
+            val params = GetListProductsUseCase.Params(page, orderBy, order)
+            getListProductsUseCase(params)
                 .collectLatest { resultProductsItem ->
                     _products.postValue(resultProductsItem)
                 }
@@ -34,7 +39,8 @@ class ProductsViewModel @Inject constructor(private val productRepository: Produ
         order: OrderFilter
     ) {
         viewModelScope.launch {
-            productRepository.getListProductsByCategory(categoryId, page, orderBy, order)
+            val params = GetListProductsByCategoryUseCase.Params(categoryId, page, orderBy, order)
+            getListProductsByCategoryUseCase(params)
                 .collectLatest { resultProductsItem ->
                     _products.postValue(resultProductsItem)
                 }
