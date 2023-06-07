@@ -12,9 +12,9 @@ fun <T> Flow<T>.asResponseState(): Flow<ResponseState<T>> {
         .catch { emit(ResponseState.Error(it)) }
 }
 
-fun <T> openResponseState(responseState: ResponseState<T>): T {
-    return when (responseState) {
-        is ResponseState.Error -> throw responseState.exception
-        is ResponseState.Success -> responseState.data
+fun <T>  ResponseState<T>.open(): T {
+    return when (this) {
+        is ResponseState.Error -> throw exception
+        is ResponseState.Success -> data
     }
 }
