@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 class ProductRepositoryImpl(
     private val productNetworkDataSource: ProductNetworkDataSource
 ) : ProductRepository {
-    override suspend fun getListProducts(
+    override fun getListProducts(
         page: Int,
         orderBy: OrderByFilter,
         order: OrderFilter
@@ -21,7 +21,7 @@ class ProductRepositoryImpl(
         productNetworkDataSource.getListProducts(page, pureOrder(orderBy), pureOrder(order))
             .asResponseState()
 
-    override suspend fun getListProductsByCategory(
+    override fun getListProductsByCategory(
         category: Int,
         page: Int,
         orderBy: OrderByFilter,
@@ -33,7 +33,7 @@ class ProductRepositoryImpl(
             pureOrder(order)
         ).asResponseState()
 
-    override suspend fun searchProducts(
+    override fun searchProducts(
         querySearch: String,
         page: Int,
         orderBy: OrderByFilter,
@@ -44,6 +44,6 @@ class ProductRepositoryImpl(
         pureOrder(order)
     ).asResponseState()
 
-    override suspend fun getProductDetails(productId: Int): Flow<ResponseState<ProductDetails>> =
+    override fun getProductDetails(productId: Int): Flow<ResponseState<ProductDetails>> =
         productNetworkDataSource.getProductDetails(productId).asResponseState()
 }

@@ -17,47 +17,50 @@ class ProductNetworkDataSourceImpl(
     private val detailsDtoToDetails: DetailsDtoToDetails,
     private val ioDispatchers: CoroutineDispatcher,
 ) : ProductNetworkDataSource {
-    override suspend fun getListProducts(
+    override fun getListProducts(
         page: Int, orderBy: String, order: String
-    ): Flow<List<ProductsItem>> = withContext(ioDispatchers) {
+    ): Flow<List<ProductsItem>> =
         flow {
-            emit(productDtoToProduct.map(productsService.getListProducts(page, orderBy, order)))
+            withContext(ioDispatchers) {
+                emit(productDtoToProduct.map(productsService.getListProducts(page, orderBy, order)))
+            }
         }
-    }
 
 
-    override suspend fun getListProductsByCategory(
+    override fun getListProductsByCategory(
         category: Int, page: Int, orderBy: String, order: String
-    ): Flow<List<ProductsItem>> = withContext(ioDispatchers) {
+    ): Flow<List<ProductsItem>> =
         flow {
-            emit(
-                productDtoToProduct.map(
-                    productsService.getListProductsByCategory(
-                        category, page, orderBy, order
+            withContext(ioDispatchers) {
+                emit(
+                    productDtoToProduct.map(
+                        productsService.getListProductsByCategory(
+                            category, page, orderBy, order
+                        )
                     )
                 )
-            )
+            }
         }
-    }
 
 
-    override suspend fun searchProducts(
+    override fun searchProducts(
         querySearch: String, page: Int, orderBy: String, order: String
-    ): Flow<List<ProductsItem>> = withContext(ioDispatchers) {
+    ): Flow<List<ProductsItem>> =
         flow {
-            emit(
-                productDtoToProduct.map(
-                    productsService.searchProducts(
-                        querySearch, page, orderBy, order
+            withContext(ioDispatchers) {
+                emit(
+                    productDtoToProduct.map(
+                        productsService.searchProducts(
+                            querySearch, page, orderBy, order
+                        )
                     )
                 )
-            )
+            }
         }
-    }
 
-    override suspend fun getProductDetails(productId: Int): Flow<ProductDetails> =
-        withContext(ioDispatchers) {
-            flow {
+    override fun getProductDetails(productId: Int): Flow<ProductDetails> =
+        flow {
+            withContext(ioDispatchers) {
                 emit(detailsDtoToDetails.map(productsService.getProductDetails(productId)))
             }
         }

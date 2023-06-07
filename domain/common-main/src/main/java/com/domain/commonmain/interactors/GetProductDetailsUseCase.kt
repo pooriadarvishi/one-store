@@ -12,7 +12,7 @@ class GetProductDetailsUseCase @Inject constructor(private val productRepository
 
     data class Params(val productId: Int)
 
-    override suspend fun doWork(params: Params): Flow<ProductDetails> =
+    override fun doWork(params: Params): Flow<ProductDetails> =
         productRepository.getProductDetails(params.productId).open()
 
 }

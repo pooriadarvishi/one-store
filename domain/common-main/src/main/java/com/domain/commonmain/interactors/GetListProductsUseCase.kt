@@ -19,7 +19,7 @@ class GetListProductsUseCase @Inject constructor(private val productRepository: 
         val order: OrderFilter
     )
 
-    override suspend fun doWork(params: Params): Flow<List<ProductsItem>> = with(params) {
+    override fun doWork(params: Params): Flow<List<ProductsItem>> = with(params) {
         productRepository.getListProducts(page, orderBy, order).open()
     }
 

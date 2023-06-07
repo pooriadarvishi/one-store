@@ -4,12 +4,12 @@ import com.core.common.model.models.category.CategoriesItem
 import kotlinx.coroutines.flow.Flow
 
 interface CategoryNetworkDataSource {
-    suspend fun getListCategories(
+    fun getListCategories(
         page: Int,
     ): Flow<List<CategoriesItem>>
 
 
-    suspend fun searchCategories(
+    fun searchCategories(
         querySearch: String,
         page: Int,
     ): Flow<List<CategoriesItem>>

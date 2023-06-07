@@ -9,14 +9,14 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface ProductRepository {
-    suspend fun getListProducts(
+     fun getListProducts(
         page: Int,
         orderBy: OrderByFilter,
         order: OrderFilter
     ): Flow<ResponseState<List<ProductsItem>>>
 
 
-    suspend fun getListProductsByCategory(
+     fun getListProductsByCategory(
         category: Int,
         page: Int,
         orderBy: OrderByFilter,
@@ -24,7 +24,7 @@ interface ProductRepository {
     ): Flow<ResponseState<List<ProductsItem>>>
 
 
-    suspend fun searchProducts(
+     fun searchProducts(
         querySearch: String,
         page: Int,
         orderBy: OrderByFilter,
@@ -32,6 +32,6 @@ interface ProductRepository {
     ): Flow<ResponseState<List<ProductsItem>>>
 
 
-    suspend fun getProductDetails(productId: Int): Flow<ResponseState<ProductDetails>>
+    fun getProductDetails(productId: Int): Flow<ResponseState<ProductDetails>>
 
 }

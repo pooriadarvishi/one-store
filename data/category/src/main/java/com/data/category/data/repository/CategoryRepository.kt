@@ -5,12 +5,12 @@ import com.example.common_main.result.ResponseState
 import kotlinx.coroutines.flow.Flow
 
 interface CategoryRepository {
-    suspend fun getListCategories(
+    fun getListCategories(
         page: Int,
     ): Flow<ResponseState<List<CategoriesItem>>>
 
 
-    suspend fun searchCategories(
+    fun searchCategories(
         querySearch: String,
         page: Int,
     ): Flow<ResponseState<List<CategoriesItem>>>

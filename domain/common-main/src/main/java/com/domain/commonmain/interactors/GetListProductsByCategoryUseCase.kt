@@ -20,7 +20,7 @@ class GetListProductsByCategoryUseCase @Inject constructor(private val productRe
         val order: OrderFilter
     )
 
-    override suspend fun doWork(params: Params): Flow<List<ProductsItem>> = with(params) {
+    override fun doWork(params: Params): Flow<List<ProductsItem>> = with(params) {
         productRepository.getListProductsByCategory(categoryId, page, orderBy, order).open()
     }
 

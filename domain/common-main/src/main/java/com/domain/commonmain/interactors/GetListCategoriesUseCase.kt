@@ -13,7 +13,7 @@ class GetListCategoriesUseCase @Inject constructor(private val categoryRepositor
         val page: Int
     )
 
-    override suspend fun doWork(params: Params): Flow<List<CategoriesItem>> =
+    override fun doWork(params: Params): Flow<List<CategoriesItem>> =
         with(params) { categoryRepository.getListCategories(page).open() }
 
 

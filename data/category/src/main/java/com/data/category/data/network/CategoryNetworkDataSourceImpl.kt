@@ -14,18 +14,25 @@ class CategoryNetworkDataSourceImpl(
     private val categoriesDtoToCategories: CategoriesDtoToCategories,
     private val ioDispatchers: CoroutineDispatcher,
 ) : CategoryNetworkDataSource {
-    override suspend fun getListCategories(page: Int): Flow<List<CategoriesItem>> =
-        withContext(ioDispatchers) {
-            flow {
+    override fun getListCategories(page: Int): Flow<List<CategoriesItem>> =
+
+        flow {
+            withContext(ioDispatchers) {
                 emit(categoriesDtoToCategories.map(productsService.getListCategories(page)))
             }
         }
 
-    override suspend fun searchCategories(
+    override fun searchCategories(
         querySearch: String, page: Int
-    ): Flow<List<CategoriesItem>> = withContext(ioDispatchers) {
-        flow {
-            emit(categoriesDtoToCategories.map(productsService.searchCategories(querySearch, page)))
+    ): Flow<List<CategoriesItem>> = flow {
+        withContext(ioDispatchers) {
+            emit(
+                categoriesDtoToCategories.map(
+                    productsService.searchCategories(
+                        querySearch, page
+                    )
+                )
+            )
         }
     }
 
