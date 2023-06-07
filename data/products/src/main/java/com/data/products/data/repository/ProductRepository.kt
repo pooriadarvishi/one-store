@@ -4,7 +4,7 @@ import com.core.common.enums.enums.OrderByFilter
 import com.core.common.enums.enums.OrderFilter
 import com.core.common.model.models.details.ProductDetails
 import com.core.common.model.models.products.ProductsItem
-import com.example.common_main.result.Result
+import com.example.common_main.result.ResponseState
 import kotlinx.coroutines.flow.Flow
 
 
@@ -13,7 +13,7 @@ interface ProductRepository {
         page: Int,
         orderBy: OrderByFilter,
         order: OrderFilter
-    ): Flow<Result<List<ProductsItem>>>
+    ): Flow<ResponseState<List<ProductsItem>>>
 
 
     suspend fun getListProductsByCategory(
@@ -21,7 +21,7 @@ interface ProductRepository {
         page: Int,
         orderBy: OrderByFilter,
         order: OrderFilter
-    ): Flow<Result<List<ProductsItem>>>
+    ): Flow<ResponseState<List<ProductsItem>>>
 
 
     suspend fun searchProducts(
@@ -29,9 +29,9 @@ interface ProductRepository {
         page: Int,
         orderBy: OrderByFilter,
         order: OrderFilter
-    ): Flow<Result<List<ProductsItem>>>
+    ): Flow<ResponseState<List<ProductsItem>>>
 
 
-    suspend fun getProductDetails(productId: Int): Flow<Result<ProductDetails>>
+    suspend fun getProductDetails(productId: Int): Flow<ResponseState<ProductDetails>>
 
 }

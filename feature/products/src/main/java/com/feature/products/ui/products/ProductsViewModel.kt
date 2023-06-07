@@ -8,15 +8,15 @@ import com.core.common.enums.enums.OrderByFilter
 import com.core.common.enums.enums.OrderFilter
 import com.core.common.model.models.products.ProductsItem
 import com.data.products.data.repository.ProductRepository
-import com.example.common_main.result.Result
+import com.example.common_main.result.ResponseState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ProductsViewModel @Inject constructor(private val productRepository: ProductRepository) :
     ViewModel() {
-    private val _products = MutableLiveData<Result<List<ProductsItem>>>()
-    val products: LiveData<Result<List<ProductsItem>>> = _products
+    private val _products = MutableLiveData<ResponseState<List<ProductsItem>>>()
+    val products: LiveData<ResponseState<List<ProductsItem>>> = _products
 
     fun getListProductByFeature(page: Int, orderBy: OrderByFilter, order: OrderFilter) {
         viewModelScope.launch {

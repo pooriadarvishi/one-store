@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.core.common.enums.common.OrderingFilters
 import com.core.common.model.models.products.ProductsItem
 import com.data.products.data.repository.ProductRepository
-import com.example.common_main.result.Result
+import com.example.common_main.result.ResponseState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,15 +16,15 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val productRepository: ProductRepository, private val orderingFilters: OrderingFilters
 ) : ViewModel() {
-    private val _lastedProducts = MutableLiveData<Result<List<ProductsItem>>>()
-    val lastedProducts: LiveData<Result<List<ProductsItem>>> = _lastedProducts
+    private val _lastedProducts = MutableLiveData<ResponseState<List<ProductsItem>>>()
+    val lastedProducts: LiveData<ResponseState<List<ProductsItem>>> = _lastedProducts
 
-    private val _popularityProducts = MutableLiveData<Result<List<ProductsItem>>>()
-    val popularityProducts: LiveData<Result<List<ProductsItem>>> = _popularityProducts
+    private val _popularityProducts = MutableLiveData<ResponseState<List<ProductsItem>>>()
+    val popularityProducts: LiveData<ResponseState<List<ProductsItem>>> = _popularityProducts
 
 
-    private val _bestProducts = MutableLiveData<Result<List<ProductsItem>>>()
-    val bestProducts: LiveData<Result<List<ProductsItem>>> = _bestProducts
+    private val _bestProducts = MutableLiveData<ResponseState<List<ProductsItem>>>()
+    val bestProducts: LiveData<ResponseState<List<ProductsItem>>> = _bestProducts
 
 
     init {
