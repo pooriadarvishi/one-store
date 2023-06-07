@@ -40,6 +40,10 @@ android {
 dependencies {
     implementation(project(":data:category"))
     implementation(project(":data:products"))
+    implementation(project(":core:common:common-main"))
+
+
+
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
 }
