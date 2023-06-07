@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.google.materia)
     implementation(libs.androidx.constraintlayout)
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     testImplementation(libs.junit4)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
