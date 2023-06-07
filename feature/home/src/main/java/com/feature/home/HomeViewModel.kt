@@ -6,25 +6,26 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.core.common.enums.common.OrderingFilters
 import com.core.common.model.models.products.ProductsItem
-import com.data.products.data.repository.ProductRepository
-import com.example.common_main.result.ResponseState
+import com.domain.commonmain.interact_result.InteractResultState
+import com.domain.commonmain.interactors.GetListProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val productRepository: ProductRepository, private val orderingFilters: OrderingFilters
+    private val getListProductsUseCase: GetListProductsUseCase,
+    private val orderingFilters: OrderingFilters
 ) : ViewModel() {
-    private val _lastedProducts = MutableLiveData<ResponseState<List<ProductsItem>>>()
-    val lastedProducts: LiveData<ResponseState<List<ProductsItem>>> = _lastedProducts
+    private val _lastedProducts = MutableLiveData<InteractResultState<List<ProductsItem>>>()
+    val lastedProducts: LiveData<InteractResultState<List<ProductsItem>>> = _lastedProducts
 
-    private val _popularityProducts = MutableLiveData<ResponseState<List<ProductsItem>>>()
-    val popularityProducts: LiveData<ResponseState<List<ProductsItem>>> = _popularityProducts
+    private val _popularityProducts = MutableLiveData<InteractResultState<List<ProductsItem>>>()
+    val popularityProducts: LiveData<InteractResultState<List<ProductsItem>>> = _popularityProducts
 
 
-    private val _bestProducts = MutableLiveData<ResponseState<List<ProductsItem>>>()
-    val bestProducts: LiveData<ResponseState<List<ProductsItem>>> = _bestProducts
+    private val _bestProducts = MutableLiveData<InteractResultState<List<ProductsItem>>>()
+    val bestProducts: LiveData<InteractResultState<List<ProductsItem>>> = _bestProducts
 
 
     init {
@@ -35,8 +36,13 @@ class HomeViewModel @Inject constructor(
 
     private fun getLastedProducts() {
         viewModelScope.launch {
-            productRepository.getListProducts(
-                1, orderingFilters.orderByPrice(), orderingFilters.orderDefault()
+            val params = GetListProductsUseCase.Params(
+                1,
+                orderingFilters.orderById(),
+                orderingFilters.orderDefault()
+            )
+            getListProductsUseCase(
+                params
             ).collect { resultProductsItems ->
                 _lastedProducts.postValue(resultProductsItems)
             }
@@ -45,8 +51,13 @@ class HomeViewModel @Inject constructor(
 
     private fun getPopularityProducts() {
         viewModelScope.launch {
-            productRepository.getListProducts(
-                1, orderingFilters.orderByPopularity(), orderingFilters.orderDefault()
+            val params = GetListProductsUseCase.Params(
+                1,
+                orderingFilters.orderByPopularity(),
+                orderingFilters.orderDefault()
+            )
+            getListProductsUseCase(
+                params
             ).collect { resultProductsItems ->
                 _popularityProducts.postValue(resultProductsItems)
             }
@@ -55,8 +66,13 @@ class HomeViewModel @Inject constructor(
 
     private fun getBestProducts() {
         viewModelScope.launch {
-            productRepository.getListProducts(
-                1, orderingFilters.orderByPopularity(), orderingFilters.orderDefault()
+            val params = GetListProductsUseCase.Params(
+                1,
+                orderingFilters.orderByRating(),
+                orderingFilters.orderDefault()
+            )
+            getListProductsUseCase(
+                params
             ).collect { resultProductsItems ->
                 _bestProducts.postValue(resultProductsItems)
             }
