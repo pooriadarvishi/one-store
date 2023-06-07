@@ -1,6 +1,5 @@
 package com.feature.home
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,14 +17,14 @@ class HomeViewModel @Inject constructor(
     private val orderingFilters: OrderingFilters
 ) : ViewModel() {
     private val _lastedProducts = MutableLiveData<InteractResultState<List<ProductsItem>>>()
-    val lastedProducts: LiveData<InteractResultState<List<ProductsItem>>> = _lastedProducts
 
     private val _popularityProducts = MutableLiveData<InteractResultState<List<ProductsItem>>>()
-    val popularityProducts: LiveData<InteractResultState<List<ProductsItem>>> = _popularityProducts
 
 
     private val _bestProducts = MutableLiveData<InteractResultState<List<ProductsItem>>>()
-    val bestProducts: LiveData<InteractResultState<List<ProductsItem>>> = _bestProducts
+
+
+    val allProducts = listOf(_lastedProducts, _popularityProducts, _bestProducts)
 
 
     init {
@@ -34,12 +33,11 @@ class HomeViewModel @Inject constructor(
         getBestProducts()
     }
 
+
     private fun getLastedProducts() {
         viewModelScope.launch {
             val params = GetListProductsUseCase.Params(
-                1,
-                orderingFilters.orderById(),
-                orderingFilters.orderDefault()
+                1, orderingFilters.orderById(), orderingFilters.orderDefault()
             )
             getListProductsUseCase(
                 params
@@ -52,9 +50,7 @@ class HomeViewModel @Inject constructor(
     private fun getPopularityProducts() {
         viewModelScope.launch {
             val params = GetListProductsUseCase.Params(
-                1,
-                orderingFilters.orderByPopularity(),
-                orderingFilters.orderDefault()
+                1, orderingFilters.orderByPopularity(), orderingFilters.orderDefault()
             )
             getListProductsUseCase(
                 params
@@ -67,9 +63,7 @@ class HomeViewModel @Inject constructor(
     private fun getBestProducts() {
         viewModelScope.launch {
             val params = GetListProductsUseCase.Params(
-                1,
-                orderingFilters.orderByRating(),
-                orderingFilters.orderDefault()
+                1, orderingFilters.orderByRating(), orderingFilters.orderDefault()
             )
             getListProductsUseCase(
                 params
