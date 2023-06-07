@@ -15,9 +15,6 @@ class CategoryViewModel @Inject constructor(private val getListCategoriesUseCase
     ViewModel() {
 
 
-    init {
-        getListCategories(1)
-    }
 
 
     private val _categories = MutableLiveData<InteractResultState<List<CategoriesItem>>>()

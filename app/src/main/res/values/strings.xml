@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">one-store</string>
+    <string name="home">Home</string>
+    <string name="category">Category</string>
 </resources>
