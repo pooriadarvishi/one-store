@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.core.common.model.models.category.CategoriesItem
-import com.data.category.data.repository.CategoryRepository
-import com.example.common_main.result.ResponseState
+import com.domain.commonmain.interact_result.InteractResultState
+import com.domain.commonmain.interactors.GetListCategoriesUseCase
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CategoryViewModel @Inject constructor(private val categoryRepository: CategoryRepository) :
+class CategoryViewModel @Inject constructor(private val getListCategoriesUseCase: GetListCategoriesUseCase) :
     ViewModel() {
 
 
@@ -20,13 +20,14 @@ class CategoryViewModel @Inject constructor(private val categoryRepository: Cate
     }
 
 
-    private val _categories = MutableLiveData<ResponseState<List<CategoriesItem>>>()
-    val categories: LiveData<ResponseState<List<CategoriesItem>>> = _categories
+    private val _categories = MutableLiveData<InteractResultState<List<CategoriesItem>>>()
+    val categories: LiveData<InteractResultState<List<CategoriesItem>>> = _categories
 
 
     private fun getListCategories(page: Int) {
         viewModelScope.launch {
-            categoryRepository.getListCategories(page).collectLatest { resultCategoriesItem ->
+            val params = GetListCategoriesUseCase.Params(page)
+            getListCategoriesUseCase(params).collectLatest { resultCategoriesItem ->
                 _categories.postValue(resultCategoriesItem)
             }
         }
