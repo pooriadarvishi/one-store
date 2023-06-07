@@ -44,6 +44,9 @@ android {
 
 dependencies {
     implementation(project(":feature:home"))
+    implementation(project(":feature:category"))
+    implementation(project(":feature:details"))
+    implementation(project(":feature:products"))
 
 
 
