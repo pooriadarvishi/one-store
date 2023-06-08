@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="180dp"
+        android:layout_height="330dp"
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="#f2f2f2"
+        app:cardCornerRadius="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical">
+
+            <ImageView
+                android:id="@+id/imageView_adapter"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_margin="15dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                app:layout_constraintBottom_toTopOf="@+id/tv_price"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_adapter"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:layout_marginStart="5dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="23000000 تومان"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_adapter"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:gravity="top|start"
+                android:maxLines="2"
+                android:padding="4dp"
+                android:text="لویزیون ال ای دی هوشمند سامسونگ مدل 82NU8900"
+                android:textColor="#465a65"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/imageView_adapter"
+                app:layout_constraintStart_toStartOf="@+id/imageView_adapter"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_adapter"
+                tools:ignore="MissingConstraints" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

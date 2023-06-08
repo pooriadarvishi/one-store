@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="full_show">نمایش همه </string>
+    <string name="title">تایتل</string>
+    <string name="network_fail">Network Fail</string>
+    <string name="item_price">price%s تومان</string>
+</resources>
