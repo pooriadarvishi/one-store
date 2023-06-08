@@ -1,5 +1,6 @@
 package com.domain.commonmain.interact_result
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -17,8 +18,13 @@ abstract class InteractResult<P, Q> {
             withTimeout(timeoutMs) {
                 InteractResultState.Success(q) as InteractResultState<Q>
             }
-
-        }.catch { emit(InteractResultState.Error) }.onStart { emit(InteractResultState.Loading) }
+        }.catch {
+            Log.e("INTERACT", "Catch: ${it.message}")
+            emit(InteractResultState.Error)
+        }.onStart {
+            Log.e("INTERACT", "Loading : StartLoading")
+            emit(InteractResultState.Loading)
+        }
 
 
     companion object {
