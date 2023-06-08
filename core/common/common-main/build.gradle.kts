@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+
+    implementation("com.github.bumptech.glide:glide:4.15.1")
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
 }
