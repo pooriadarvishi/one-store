@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.core.common.ui.ui.BaseFragment
+import com.core.common.ui.ui.BaseViewModel
 import com.feature.details.DetailsActivity
 import com.feature.products.ProductsActivity.Companion.CATEGORY
 import com.feature.products.ProductsActivity.Companion.ORDER
@@ -24,7 +25,7 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class ProductsFragment : Fragment() {
+class ProductsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentProductsBinding
     private val productsViewModel: ProductsViewModel by viewModels()
@@ -36,11 +37,6 @@ class ProductsFragment : Fragment() {
     ): View {
         binding = FragmentProductsBinding.inflate(inflater)
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setUI()
     }
 
     private fun start() {
@@ -61,17 +57,17 @@ class ProductsFragment : Fragment() {
     }
 
     private fun observeData() {
-        observe(productsViewModel.products) {
+        observe(productsViewModel.data) {
             adapter.submitList(it)
         }
     }
 
-    private fun observeStateNetwork() {
-        observe(productsViewModel.stateNetwork) { state ->
+    private fun observeUiState() {
+        observe(productsViewModel.uiState) { state ->
             when (state) {
-                ProductsViewModel.StateNetwork.SUCCESS -> bindSuccess()
-                ProductsViewModel.StateNetwork.FAIL -> bindFail()
-                ProductsViewModel.StateNetwork.LOADING -> bindLoading()
+                BaseViewModel.UiState.SUCCESS -> bindSuccess()
+                BaseViewModel.UiState.FAIL -> bindFail()
+                BaseViewModel.UiState.LOADING -> bindLoading()
             }
         }
     }
@@ -82,18 +78,8 @@ class ProductsFragment : Fragment() {
         startActivity(intent)
     }
 
-    private fun <T> observe(flow: StateFlow<T>, action: (T) -> Unit) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                flow.collect {
-                    action(it)
-                }
-            }
-        }
-    }
 
-
-    private fun bindLoading() {
+    override fun bindLoading() {
         binding.apply {
             networkImage.isInvisible = true
             recyclerView.isInvisible = true
@@ -101,7 +87,7 @@ class ProductsFragment : Fragment() {
         }
     }
 
-    private fun bindSuccess() {
+    override fun bindSuccess() {
         binding.apply {
             networkImage.isInvisible = true
             recyclerView.isInvisible = false
@@ -109,7 +95,7 @@ class ProductsFragment : Fragment() {
         }
     }
 
-    private fun bindFail() {
+    override fun bindFail() {
         binding.apply {
             networkImage.isInvisible = false
             recyclerView.isInvisible = true
@@ -129,10 +115,10 @@ class ProductsFragment : Fragment() {
         })
     }
 
-    private fun setUI() {
+    override fun setUI() {
         start()
         setAdapter()
-        observeStateNetwork()
+        observeUiState()
         observeData()
         setPagination()
     }
