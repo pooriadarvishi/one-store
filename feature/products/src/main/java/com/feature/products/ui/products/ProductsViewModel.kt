@@ -1,18 +1,17 @@
 package com.feature.products.ui.products
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.core.common.enums.common.OrderingFilters
 import com.core.common.enums.common.asString
 import com.core.common.enums.common.network
 import com.core.common.model.models.products.ProductsItem
+import com.core.common.ui.ui.BaseViewModel
 import com.domain.commonmain.interact_result.InteractResultState
 import com.domain.commonmain.interactors.GetListProductsByCategoryUseCase
 import com.domain.commonmain.interactors.GetListProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,7 +22,7 @@ class ProductsViewModel @Inject constructor(
     private val getListProductsUseCase: GetListProductsUseCase,
     private val getListProductsByCategoryUseCase: GetListProductsByCategoryUseCase,
     private val orderingFilters: OrderingFilters
-) : ViewModel() {
+) : BaseViewModel<List<ProductsItem>>() {
     private var job: Job? = null
     private var categoryId: Int = 0
     private var page = 1
@@ -31,13 +30,8 @@ class ProductsViewModel @Inject constructor(
     private var order = orderingFilters.orderDefault()
 
 
-    private val _products =
+    override var _data =
         MutableStateFlow<List<ProductsItem>>(mutableListOf())
-    val products: StateFlow<List<ProductsItem>> = _products
-
-    private val _stateNetwork =
-        MutableStateFlow(StateNetwork.LOADING)
-    val stateNetwork: StateFlow<StateNetwork> = _stateNetwork
 
 
     operator fun invoke() {
@@ -84,11 +78,11 @@ class ProductsViewModel @Inject constructor(
     private fun InteractResultState<List<ProductsItem>>.open() {
 
         when (this) {
-            InteractResultState.Error -> _stateNetwork.value = StateNetwork.FAIL
+            InteractResultState.Error -> _uiState.value = UiState.FAIL
             InteractResultState.Loading -> {}
             is InteractResultState.Success -> {
-                _products.value += data
-                _stateNetwork.value = StateNetwork.SUCCESS
+                _data.value += data
+                _uiState.value = UiState.SUCCESS
             }
         }
     }
@@ -106,8 +100,4 @@ class ProductsViewModel @Inject constructor(
 
     fun getOrderDDefault(): String = orderingFilters.orderByDefault().asString()
 
-
-    enum class StateNetwork {
-        SUCCESS, FAIL, LOADING
-    }
 }
