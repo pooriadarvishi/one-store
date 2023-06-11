@@ -16,7 +16,7 @@ interface ProductsService {
     ): List<ProductsResponseItemDto>
 
     @GET("products")
-    fun getListProductsByCategory(
+    suspend fun getListProductsByCategory(
         @Query("category") category: Int,
         @Query("page") page: Int,
         @Query("orderby") orderBy: String,
@@ -24,12 +24,12 @@ interface ProductsService {
     ): List<ProductsResponseItemDto>
 
     @GET("products/categories")
-    fun getListCategories(
+   suspend fun getListCategories(
         @Query("page") page: Int,
     ): List<CategoriesItemDto>
 
     @GET("products")
-    fun searchProducts(
+    suspend fun searchProducts(
         @Query("search") querySearch: String,
         @Query("page") page: Int,
         @Query("orderby") orderBy: String,
@@ -37,12 +37,12 @@ interface ProductsService {
     ): List<ProductsResponseItemDto>
 
     @GET("products/categories")
-    fun searchCategories(
+    suspend fun searchCategories(
         @Query("search") querySearch: String,
         @Query("page") page: Int,
     ): List<CategoriesItemDto>
 
 
     @GET("products/{product_id}")
-    fun getProductDetails(@Path("product_id") productId: Int): ProductDetailsDto
+    suspend fun getProductDetails(@Path("product_id") productId: Int): ProductDetailsDto
 }
