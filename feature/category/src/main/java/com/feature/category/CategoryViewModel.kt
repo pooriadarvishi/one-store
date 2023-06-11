@@ -1,20 +1,19 @@
 package com.feature.category
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.core.common.model.models.category.CategoriesItem
+import com.core.common.ui.ui.BaseViewModel
 import com.domain.commonmain.interact_result.InteractResultState
 import com.domain.commonmain.interactors.GetListCategoriesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CategoryViewModel @Inject constructor(private val getListCategoriesUseCase: GetListCategoriesUseCase) :
-    ViewModel() {
+    BaseViewModel<List<CategoriesItem>>() {
     private var page = 1
 
     init {
@@ -22,12 +21,7 @@ class CategoryViewModel @Inject constructor(private val getListCategoriesUseCase
     }
 
 
-    private val _categories = MutableStateFlow<List<CategoriesItem>>(emptyList())
-    val categories: StateFlow<List<CategoriesItem>> = _categories
-
-    private val _stateNetwork =
-        MutableStateFlow(StateNetwork.LOADING)
-    val stateNetwork: StateFlow<StateNetwork> = _stateNetwork
+    override var _data: MutableStateFlow<List<CategoriesItem>> = MutableStateFlow(emptyList())
 
     private fun getListCategories() {
         viewModelScope.launch {
@@ -41,19 +35,13 @@ class CategoryViewModel @Inject constructor(private val getListCategoriesUseCase
     }
 
     private fun InteractResultState<List<CategoriesItem>>.open() {
-
         when (this) {
-            InteractResultState.Error -> _stateNetwork.value = StateNetwork.FAIL
+            InteractResultState.Error -> _uiState.value = UiState.FAIL
             InteractResultState.Loading -> {}
             is InteractResultState.Success -> {
-                _categories.value += data
-                _stateNetwork.value = StateNetwork.SUCCESS
+                _data.value += data
+                _uiState.value = UiState.SUCCESS
             }
         }
-    }
-
-
-    enum class StateNetwork {
-        SUCCESS, FAIL, LOADING
     }
 }
