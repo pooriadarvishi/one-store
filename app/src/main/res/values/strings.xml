@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">one-store</string>
     <string name="home">Home</string>
     <string name="category">Category</string>
