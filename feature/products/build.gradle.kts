@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 plugins {
     id("com.android.library")
     id("com.google.dagger.hilt.android")
@@ -48,6 +46,8 @@ dependencies {
     implementation(project(":core:common:enums"))
     implementation(project(":core:common:legacy"))
     implementation(project(":domain:common-main"))
+    implementation(project(":feature:details"))
+
 
 
 
