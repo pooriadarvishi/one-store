@@ -7,12 +7,13 @@
 
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:layout_margin="10dp"
-        app:cardBackgroundColor="#f1f1f1"
-        app:cardCornerRadius="25dp">
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="@dimen/cardview_compat_inset_shadow">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,6 +24,7 @@
                 android:id="@+id/imageView_adapter"
                 android:layout_width="170dp"
                 android:layout_height="match_parent"
+                android:padding="10dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +37,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="6dp"
                 android:maxLines="2"
-                android:paddingEnd="5dp"
+                android:padding="5dp"
                 android:text="salam donya :)"
                 android:textDirection="rtl"
                 android:textSize="21sp"
@@ -73,5 +75,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

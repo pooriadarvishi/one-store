@@ -66,7 +66,7 @@ class DetailsFragment : BaseFragment() {
 
     override fun bindLoading() {
         detailsBinding.apply {
-            imageView.isInvisible = true
+            hostError.isInvisible = true
             hostDetails.isInvisible = true
             progressBar.isInvisible = false
         }
@@ -74,7 +74,7 @@ class DetailsFragment : BaseFragment() {
 
     override fun bindSuccess() {
         detailsBinding.apply {
-            imageView.isInvisible = true
+            hostError.isInvisible = true
             hostDetails.isInvisible = false
             progressBar.isInvisible = true
         }
@@ -82,7 +82,7 @@ class DetailsFragment : BaseFragment() {
 
     override fun bindFail() {
         detailsBinding.apply {
-            imageView.isInvisible = false
+            hostError.isInvisible = false
             hostDetails.isInvisible = true
             progressBar.isInvisible = true
         }
