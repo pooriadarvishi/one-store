@@ -1,6 +1,6 @@
 package com.data.products.data.repository
 
-import com.core.common.enums.common.pureOrder
+import com.core.common.enums.common.asString
 import com.core.common.enums.enums.OrderByFilter
 import com.core.common.enums.enums.OrderFilter
 import com.core.common.model.models.details.ProductDetails
@@ -18,7 +18,7 @@ class ProductRepositoryImpl(
         orderBy: OrderByFilter,
         order: OrderFilter
     ): Flow<ResponseState<List<ProductsItem>>> =
-        productNetworkDataSource.getListProducts(page, pureOrder(orderBy), pureOrder(order))
+        productNetworkDataSource.getListProducts(page, orderBy.asString(), order.asString())
             .asResponseState()
 
     override fun getListProductsByCategory(
@@ -29,8 +29,8 @@ class ProductRepositoryImpl(
     ): Flow<ResponseState<List<ProductsItem>>> =
         productNetworkDataSource.getListProductsByCategory(
             category, page,
-            pureOrder(orderBy),
-            pureOrder(order)
+            orderBy.asString(),
+            order.asString()
         ).asResponseState()
 
     override fun searchProducts(
@@ -40,8 +40,8 @@ class ProductRepositoryImpl(
         order: OrderFilter
     ): Flow<ResponseState<List<ProductsItem>>> = productNetworkDataSource.searchProducts(
         querySearch, page,
-        pureOrder(orderBy),
-        pureOrder(order)
+        orderBy.asString(),
+        order.asString()
     ).asResponseState()
 
     override fun getProductDetails(productId: Int): Flow<ResponseState<ProductDetails>> =
