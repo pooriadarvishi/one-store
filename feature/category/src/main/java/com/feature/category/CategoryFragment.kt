@@ -24,8 +24,7 @@ class CategoryFragment : BaseFragment() {
     private lateinit var adapter: CategoryAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         categoryBinding = FragmentCategoryBinding.inflate(inflater)
         return categoryBinding.root
@@ -63,6 +62,7 @@ class CategoryFragment : BaseFragment() {
     }
 
     private fun observeUiState() {
+
         observe(categoryViewModel.uiState) { state ->
             when (state) {
                 BaseViewModel.UiState.SUCCESS -> bindSuccess()
@@ -72,11 +72,9 @@ class CategoryFragment : BaseFragment() {
         }
     }
 
-
-
     override fun bindLoading() {
         categoryBinding.apply {
-            networkImage.isInvisible = true
+            hostError.isInvisible = true
             recyclerViewCategory.isInvisible = true
             progressBar.isInvisible = false
         }
@@ -84,7 +82,7 @@ class CategoryFragment : BaseFragment() {
 
     override fun bindSuccess() {
         categoryBinding.apply {
-            networkImage.isInvisible = true
+            hostError.isInvisible = true
             recyclerViewCategory.isInvisible = false
             progressBar.isInvisible = true
         }
@@ -92,7 +90,7 @@ class CategoryFragment : BaseFragment() {
 
     override fun bindFail() {
         categoryBinding.apply {
-            networkImage.isInvisible = false
+            hostError.isInvisible = false
             recyclerViewCategory.isInvisible = true
             progressBar.isInvisible = true
         }

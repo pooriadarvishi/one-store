@@ -35,9 +35,7 @@ class CategoryViewModel @Inject constructor(private val getListCategoriesUseCase
     }
 
     fun nextPage() {
-        Log.e("KOSPEDAE", "nextPage: ", )
         if (!isLoading) {
-            Log.e("KOSPEDAE", "nextPage: ", )
             page++
             getListCategories()
             loading()
@@ -48,8 +46,7 @@ class CategoryViewModel @Inject constructor(private val getListCategoriesUseCase
         when (this) {
             InteractResultState.Error -> _uiState.value = UiState.FAIL
             InteractResultState.Loading -> {}
-            is InteractResultState.Success -> {
-                _data.value += data
+            is InteractResultState.Success -> { _data.value += data
                 _uiState.value = UiState.SUCCESS
                 if (isLoading && data.isNotEmpty()) loading()
             }
@@ -58,5 +55,11 @@ class CategoryViewModel @Inject constructor(private val getListCategoriesUseCase
 
     private fun loading() {
         isLoading = !isLoading
+    }
+
+
+    fun retryData() {
+        page = 1
+        getListCategories()
     }
 }
