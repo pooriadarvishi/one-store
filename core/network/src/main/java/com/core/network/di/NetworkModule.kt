@@ -33,7 +33,6 @@ object NetworkModule {
             .newBuilder()
             .addQueryParameter(Service.CONSUMER_KEY, Service.CONSUMER_KEY_VALUE)
             .addQueryParameter(Service.CONSUMER_SECRET, Service.CONSUMER_SECRET_VALUE)
-            .addQueryParameter(Service.PER_PAGE, Service.PER_PAGE_VAlUE)
             .build()
         val request = chain.request()
             .newBuilder()
