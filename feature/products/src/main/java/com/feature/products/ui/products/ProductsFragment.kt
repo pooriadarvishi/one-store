@@ -7,10 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.core.common.ui.ui.BaseFragment
 import com.core.common.ui.ui.BaseViewModel
@@ -20,8 +17,6 @@ import com.feature.products.ProductsActivity.Companion.ORDER
 import com.feature.products.databinding.FragmentProductsBinding
 import com.feature.products.util.adapters.ProductsListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -81,7 +76,7 @@ class ProductsFragment : BaseFragment() {
 
     override fun bindLoading() {
         binding.apply {
-            networkImage.isInvisible = true
+            hostError.isInvisible = true
             recyclerView.isInvisible = true
             progressBar.isInvisible = false
         }
@@ -89,7 +84,7 @@ class ProductsFragment : BaseFragment() {
 
     override fun bindSuccess() {
         binding.apply {
-            networkImage.isInvisible = true
+            hostError.isInvisible = true
             recyclerView.isInvisible = false
             progressBar.isInvisible = true
         }
@@ -97,7 +92,7 @@ class ProductsFragment : BaseFragment() {
 
     override fun bindFail() {
         binding.apply {
-            networkImage.isInvisible = false
+            hostError.isInvisible = false
             recyclerView.isInvisible = true
             progressBar.isInvisible = true
         }
@@ -106,7 +101,7 @@ class ProductsFragment : BaseFragment() {
     private fun setPagination() {
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val layoutManager = recyclerView.layoutManager as GridLayoutManager
                 val lastPosition = layoutManager.findLastVisibleItemPosition()
                 if (lastPosition == adapter.itemCount - 1) {
                     productsViewModel.nextPage()
