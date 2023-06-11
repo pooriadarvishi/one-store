@@ -3,8 +3,7 @@
 
     <application
         android:theme="@style/Theme.Onestore">
-
+        <activity android:name="com.feature.details.DetailsActivity"/>
     </application>
-
 </manifest>
 
