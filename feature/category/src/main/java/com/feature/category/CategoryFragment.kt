@@ -6,22 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.core.common.ui.ui.BaseFragment
+import com.core.common.ui.ui.BaseViewModel
 import com.feature.category.databinding.FragmentCategoryBinding
 import com.feature.category.util.adapters.CategoryAdapter
 import com.feature.products.ProductsActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CategoryFragment : Fragment() {
+class CategoryFragment : BaseFragment() {
 
     private val categoryViewModel: CategoryViewModel by viewModels()
     private lateinit var categoryBinding: FragmentCategoryBinding
@@ -35,14 +31,9 @@ class CategoryFragment : Fragment() {
         return categoryBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setUI()
-    }
-
 
     private fun setAdapter() {
-        adapter = CategoryAdapter { showDetail(it) }
+        adapter = CategoryAdapter { onProductsByCategory(it) }
         categoryBinding.recyclerViewCategory.adapter = adapter
 
     }
@@ -61,38 +52,29 @@ class CategoryFragment : Fragment() {
         })
     }
 
-    private fun showDetail(productId: Int) {
+    private fun onProductsByCategory(categoryId: Int) {
         val intent = Intent(requireContext(), ProductsActivity::class.java)
-        intent.putExtra(ProductsActivity.CATEGORY, productId)
+        intent.putExtra(ProductsActivity.CATEGORY, categoryId)
         startActivity(intent)
     }
 
     private fun observeCategory() {
-        observe(categoryViewModel.categories) { adapter.submitList(it) }
+        observe(categoryViewModel.data) { adapter.submitList(it) }
     }
 
-    private fun observeStateNetwork() {
-        observe(categoryViewModel.stateNetwork) { state ->
+    private fun observeUiState() {
+        observe(categoryViewModel.uiState) { state ->
             when (state) {
-                CategoryViewModel.StateNetwork.SUCCESS -> bindSuccess()
-                CategoryViewModel.StateNetwork.FAIL -> bindFail()
-                CategoryViewModel.StateNetwork.LOADING -> bindLoading()
-            }
-        }
-    }
-
-    private fun <T> observe(flow: StateFlow<T>, action: (T) -> Unit) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                flow.collect {
-                    action(it)
-                }
+                BaseViewModel.UiState.SUCCESS -> bindSuccess()
+                BaseViewModel.UiState.FAIL -> bindFail()
+                BaseViewModel.UiState.LOADING -> bindLoading()
             }
         }
     }
 
 
-    private fun bindLoading() {
+
+    override fun bindLoading() {
         categoryBinding.apply {
             networkImage.isInvisible = true
             recyclerViewCategory.isInvisible = true
@@ -100,7 +82,7 @@ class CategoryFragment : Fragment() {
         }
     }
 
-    private fun bindSuccess() {
+    override fun bindSuccess() {
         categoryBinding.apply {
             networkImage.isInvisible = true
             recyclerViewCategory.isInvisible = false
@@ -108,7 +90,7 @@ class CategoryFragment : Fragment() {
         }
     }
 
-    private fun bindFail() {
+    override fun bindFail() {
         categoryBinding.apply {
             networkImage.isInvisible = false
             recyclerViewCategory.isInvisible = true
@@ -117,9 +99,9 @@ class CategoryFragment : Fragment() {
     }
 
 
-    private fun setUI() {
+    override fun setUI() {
         setAdapter()
-        observeStateNetwork()
+        observeUiState()
         observeCategory()
         setPagination()
     }
