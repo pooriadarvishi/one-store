@@ -78,20 +78,20 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun bindFail() {
-        binding.imageView.isInvisible = false
+        binding.hostError.isInvisible = false
         binding.progressBar.isInvisible = true
         binding.homeRecycler.isInvisible = true
     }
 
     override fun bindSuccess() {
-        binding.imageView.isInvisible = true
+        binding.hostError.isInvisible = true
         binding.progressBar.isInvisible = true
         binding.homeRecycler.isInvisible = false
     }
 
     override fun bindLoading() {
         binding.homeRecycler.isInvisible = true
-        binding.imageView.isInvisible = true
+        binding.hostError.isInvisible = true
         binding.progressBar.isInvisible = false
     }
 }

@@ -4,4 +4,6 @@
     <string name="title">تایتل</string>
     <string name="network_fail">Network Fail</string>
     <string name="item_price">price%s تومان</string>
+    <string name="connection_faile">مشکل در برقراری ارتباط :)</string>
+    <string name="try_again">امتحان مجدد</string>
 </resources>
