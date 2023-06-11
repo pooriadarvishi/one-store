@@ -6,14 +6,13 @@ import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.domain.commonmain.interact_result.InteractResultState
 import com.feature.home.databinding.HomeMainItemBinding
 import com.feature.home.util.ItemRes
 
 typealias click = (String) -> Unit
 typealias clickDet = (Int) -> Unit
 
-class MainProductAdapter( private val showDetails: clickDet,private val showMore: click) :
+class MainProductAdapter(private val showDetails: clickDet, private val showMore: click) :
     ListAdapter<ItemRes, MainProductAdapter.ViewHolder>(object : DiffUtil.ItemCallback<ItemRes>() {
         override fun areItemsTheSame(oldItem: ItemRes, newItem: ItemRes): Boolean =
             oldItem.title == newItem.title
@@ -37,34 +36,7 @@ class MainProductAdapter( private val showDetails: clickDet,private val showMore
             val adapter = ProductAdapter(showDetails)
             binding.recyclerView.adapter = adapter
             binding.title.text = item.title
-            when (val product = item.products) {
-                InteractResultState.Error -> bindError()
-
-                InteractResultState.Loading -> bindLoading()
-
-                is InteractResultState.Success -> {
-                    bindSuccess()
-                    adapter.submitList(product.data)
-                }
-            }
-        }
-
-        private fun bindError() {
-            binding.imageView.isInvisible = false
-            binding.progressBar.isInvisible = true
-            binding.recyclerView.isInvisible = true
-        }
-
-        private fun bindSuccess() {
-            binding.imageView.isInvisible = true
-            binding.progressBar.isInvisible = true
-            binding.recyclerView.isInvisible = false
-        }
-
-        private fun bindLoading() {
-            binding.recyclerView.isInvisible = true
-            binding.imageView.isInvisible = true
-            binding.progressBar.isInvisible = false
+            adapter.submitList(itemRes.products)
         }
     }
 

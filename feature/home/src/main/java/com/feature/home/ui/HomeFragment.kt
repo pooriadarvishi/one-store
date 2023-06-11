@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.core.view.isInvisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.core.common.ui.ui.BaseFragment
+import com.core.common.ui.ui.BaseViewModel
 import com.feature.details.DetailsActivity
 import com.feature.home.databinding.FragmentHomeBinding
 import com.feature.home.util.adapters.MainProductAdapter
@@ -19,7 +21,7 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: MainProductAdapter
@@ -30,12 +32,6 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater)
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setUI()
-    }
-
 
     private fun showMore(orderByFilter: String) {
         val intent = Intent(requireContext(), ProductsActivity::class.java)
@@ -57,17 +53,46 @@ class HomeFragment : Fragment() {
     private fun observe() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                homeViewModel.items.collect {
+                homeViewModel.data.collect {
                     adapter.submitList(it)
                 }
             }
         }
     }
 
+    private fun observeUiState() {
+        observe(homeViewModel.uiState) { state ->
+            when (state) {
+                BaseViewModel.UiState.SUCCESS -> bindSuccess()
+                BaseViewModel.UiState.FAIL -> bindFail()
+                BaseViewModel.UiState.LOADING -> bindLoading()
+            }
+        }
+    }
 
-    private fun setUI() {
+
+    override fun setUI() {
         setAdapter()
         observe()
+        observeUiState()
+    }
+
+    override fun bindFail() {
+        binding.imageView.isInvisible = false
+        binding.progressBar.isInvisible = true
+        binding.homeRecycler.isInvisible = true
+    }
+
+    override fun bindSuccess() {
+        binding.imageView.isInvisible = true
+        binding.progressBar.isInvisible = true
+        binding.homeRecycler.isInvisible = false
+    }
+
+    override fun bindLoading() {
+        binding.homeRecycler.isInvisible = true
+        binding.imageView.isInvisible = true
+        binding.progressBar.isInvisible = false
     }
 }
 
