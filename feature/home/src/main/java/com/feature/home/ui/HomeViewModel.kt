@@ -3,6 +3,7 @@ package com.feature.home.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.core.common.enums.common.OrderingFilters
+import com.core.common.enums.common.ui
 import com.core.common.model.models.products.ProductsItem
 import com.domain.commonmain.interact_result.InteractResultState
 import com.domain.commonmain.interactors.GetListProductsUseCase
@@ -51,9 +52,9 @@ class HomeViewModel @Inject constructor(
 
 
     private fun getItems() {
-        lastedProducts.open("Lasted", 0)
-        popularityProducts.open("Popular", 1)
-        bestProducts.open("Best", 2)
+        lastedProducts.open(lastedParams.orderBy.ui(lastedParams.order), 0)
+        popularityProducts.open(popularParams.orderBy.ui(lastedParams.order), 1)
+        bestProducts.open(bestParams.orderBy.ui(lastedParams.order), 2)
     }
 
     init {
