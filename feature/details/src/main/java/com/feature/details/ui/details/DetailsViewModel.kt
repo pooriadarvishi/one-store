@@ -6,6 +6,7 @@ import com.core.common.ui.ui.BaseViewModel
 import com.domain.commonmain.interact_result.InteractResultState
 import com.domain.commonmain.interactors.GetProductDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,12 +21,13 @@ class DetailsViewModel @Inject constructor(
     override var _data =
         MutableStateFlow<InteractResultState<ProductDetails>>(InteractResultState.Loading)
 
-    operator fun invoke() {
+    init {
         getProductDetails()
     }
 
     private fun getProductDetails() {
         viewModelScope.launch {
+            delay(500)
             getProductDetails(GetProductDetailsUseCase.Params(productId)).collect { ResultProductDetails ->
                 _data.value = ResultProductDetails
             }

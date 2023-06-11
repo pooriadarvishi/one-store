@@ -39,7 +39,6 @@ class DetailsFragment : BaseFragment() {
         if (intent.hasExtra(PRODUCT_ID)) {
             detailsViewModel.setProductId(intent.getIntExtra(PRODUCT_ID, 0))
         }
-        detailsViewModel()
     }
 
     private fun observe() {
