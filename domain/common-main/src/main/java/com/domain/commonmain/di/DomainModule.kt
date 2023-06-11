@@ -19,22 +19,19 @@ object DomainModule {
 
 
     @Provides
-    @Singleton
     fun provideGetListCategoriesUseCase(categoryRepository: CategoryRepository): GetListCategoriesUseCase =
         GetListCategoriesUseCase(categoryRepository)
 
     @Provides
-    @Singleton
     fun provideGetListProductsByCategoryUseCase(productRepository: ProductRepository): GetListProductsByCategoryUseCase =
         GetListProductsByCategoryUseCase(productRepository)
 
     @Provides
-    @Singleton
     fun provideGetListProductsUseCase(productRepository: ProductRepository): GetListProductsUseCase =
         GetListProductsUseCase(productRepository)
 
     @Provides
-    @Singleton
     fun provideGetProductDetailsUseCase(productRepository: ProductRepository): GetProductDetailsUseCase =
         GetProductDetailsUseCase(productRepository)
+
 }
