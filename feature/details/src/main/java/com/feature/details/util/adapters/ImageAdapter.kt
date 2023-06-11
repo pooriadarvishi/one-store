@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.core.common.model.models.details.Image
-import com.example.common_main.imageLoading.loadImage
+import com.core.common.ui.util.imageLoading.loadImage
 import com.feature.details.databinding.ImageDetailsItemBinding
 
 class ImageAdapter :
