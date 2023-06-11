@@ -28,6 +28,7 @@ class ProductsViewModel @Inject constructor(
     private var page = 1
     private var orderBy = orderingFilters.orderByDefault()
     private var order = orderingFilters.orderDefault()
+    private var isLoading = false
 
 
     override var _data =
@@ -36,7 +37,7 @@ class ProductsViewModel @Inject constructor(
 
     operator fun invoke() {
         job?.cancel()
-        if (categoryId != 0) {
+        job = if (categoryId != 0) {
             getListProductByCategory()
         } else {
             getListProductByOrder()
@@ -44,25 +45,26 @@ class ProductsViewModel @Inject constructor(
     }
 
     fun nextPage() {
-        page++
-        getListProductByCategory()
-    }
-
-    private fun getListProductByOrder() {
-        job = viewModelScope.launch {
-            getListProductsUseCase(
-                GetListProductsUseCase.Params(
-                    page,
-                    orderBy,
-                    order
-                )
-            ).collectLatest { it.open() }
+        if (!isLoading) {
+            page++
+            getListProductByCategory()
+            loading()
         }
     }
 
+    private fun getListProductByOrder() = viewModelScope.launch {
+        getListProductsUseCase(
+            GetListProductsUseCase.Params(
+                page,
+                orderBy,
+                order
+            )
+        ).collectLatest { it.open() }
+    }
+
     private fun getListProductByCategory(
-    ) {
-        job = viewModelScope.launch {
+    ) =
+        viewModelScope.launch {
             getListProductsByCategoryUseCase(
                 GetListProductsByCategoryUseCase.Params(
                     categoryId,
@@ -72,7 +74,6 @@ class ProductsViewModel @Inject constructor(
                 )
             ).collectLatest { it.open() }
         }
-    }
 
 
     private fun InteractResultState<List<ProductsItem>>.open() {
@@ -83,6 +84,7 @@ class ProductsViewModel @Inject constructor(
             is InteractResultState.Success -> {
                 _data.value += data
                 _uiState.value = UiState.SUCCESS
+                if (isLoading && data.isNotEmpty()) loading()
             }
         }
     }
@@ -99,5 +101,10 @@ class ProductsViewModel @Inject constructor(
     }
 
     fun getOrderDDefault(): String = orderingFilters.orderByDefault().asString()
+
+
+    private fun loading() {
+        isLoading = !isLoading
+    }
 
 }
