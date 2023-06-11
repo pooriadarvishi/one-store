@@ -49,6 +49,7 @@ dependencies {
     implementation(project(":core:common:legacy"))
     implementation(project(":domain:common-main"))
     implementation(project(":feature:products"))
+    implementation(project(":core:common:ui"))
 
 
 

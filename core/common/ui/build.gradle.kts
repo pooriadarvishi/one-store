@@ -32,9 +32,6 @@ android {
     kapt {
         correctErrorTypes = true
     }
-    buildFeatures {
-        dataBinding = true
-    }
 }
 
 
@@ -50,6 +47,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
+    implementation("com.github.bumptech.glide:glide:4.15.1")
     testImplementation(libs.junit4)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

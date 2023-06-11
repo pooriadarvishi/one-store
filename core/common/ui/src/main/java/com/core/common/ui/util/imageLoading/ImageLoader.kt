@@ -1,4 +1,4 @@
-package com.example.common_main.imageLoading
+package com.core.common.ui.util.imageLoading
 
 import android.view.View
 import android.widget.ImageView

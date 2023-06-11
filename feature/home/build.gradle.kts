@@ -46,11 +46,11 @@ dependencies {
     implementation(project(":core:common:common-main"))
     implementation(project(":core:common:model"))
     implementation(project(":core:common:enums"))
+    implementation(project(":core:common:ui"))
     implementation(project(":core:common:legacy"))
     implementation(project(":domain:common-main"))
     implementation(project(":feature:products"))
     implementation(project(":feature:details"))
-
 
 
 
