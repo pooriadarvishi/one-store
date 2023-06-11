@@ -1,17 +1,16 @@
 package com.feature.details.ui.details
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.core.common.model.models.details.ProductDetails
+import com.core.common.ui.ui.BaseFragment
 import com.domain.commonmain.interact_result.InteractResultState
 import com.feature.details.DetailsActivity.Companion.PRODUCT_ID
 import com.feature.details.databinding.FragmentDetailsBinding
@@ -20,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailsFragment : Fragment() {
+class DetailsFragment : BaseFragment() {
     private val detailsViewModel: DetailsViewModel by viewModels()
     private lateinit var detailsBinding: FragmentDetailsBinding
     private lateinit var adapter: ImageAdapter
@@ -34,17 +33,11 @@ class DetailsFragment : Fragment() {
         return detailsBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setUi()
-    }
-
 
     private fun start() {
         val intent = requireActivity().intent
         if (intent.hasExtra(PRODUCT_ID)) {
             detailsViewModel.setProductId(intent.getIntExtra(PRODUCT_ID, 0))
-            Log.e("POOOORIAS", "start: ${intent.getIntExtra(PRODUCT_ID, 0)}")
         }
         detailsViewModel()
     }
@@ -53,7 +46,7 @@ class DetailsFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                detailsViewModel.productDetails.collect { resultState ->
+                detailsViewModel.data.collect { resultState ->
                     when (resultState) {
                         InteractResultState.Error -> bindFail()
                         InteractResultState.Loading -> bindLoading()
@@ -72,7 +65,7 @@ class DetailsFragment : Fragment() {
         detailsBinding.recyclerViewGallery.adapter = adapter
     }
 
-    private fun bindLoading() {
+    override fun bindLoading() {
         detailsBinding.apply {
             imageView.isInvisible = true
             hostDetails.isInvisible = true
@@ -80,7 +73,7 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun bindSuccess() {
+    override fun bindSuccess() {
         detailsBinding.apply {
             imageView.isInvisible = true
             hostDetails.isInvisible = false
@@ -88,7 +81,7 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun bindFail() {
+    override fun bindFail() {
         detailsBinding.apply {
             imageView.isInvisible = false
             hostDetails.isInvisible = true
@@ -101,13 +94,13 @@ class DetailsFragment : Fragment() {
         adapter.submitList(productsItem.images)
         detailsBinding.apply {
             tvTitle.text = productsItem.name
-            tvPrice.text = "${ productsItem.price }تومان"
+            tvPrice.text = "${productsItem.price}تومان"
             tvDescription.text = productsItem.description
             ratingBar.rating = productsItem.averageRating?.toFloat() ?: 0.0f
         }
     }
 
-    private fun setUi() {
+    override fun setUI() {
         start()
         setAdapter()
         observe()
