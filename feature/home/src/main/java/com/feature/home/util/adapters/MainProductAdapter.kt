@@ -10,7 +10,10 @@ import com.domain.commonmain.interact_result.InteractResultState
 import com.feature.home.databinding.HomeMainItemBinding
 import com.feature.home.util.ItemRes
 
-class MainProductAdapter :
+typealias click = (String) -> Unit
+typealias clickDet = (Int) -> Unit
+
+class MainProductAdapter( private val showDetails: clickDet,private val showMore: click) :
     ListAdapter<ItemRes, MainProductAdapter.ViewHolder>(object : DiffUtil.ItemCallback<ItemRes>() {
         override fun areItemsTheSame(oldItem: ItemRes, newItem: ItemRes): Boolean =
             oldItem.title == newItem.title
@@ -22,9 +25,16 @@ class MainProductAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var item: ItemRes
+
+        init {
+            binding.tvFullShow.setOnClickListener {
+                showMore(item.title)
+            }
+        }
+
         fun bind(itemRes: ItemRes) {
             item = itemRes
-            val adapter = ProductAdapter()
+            val adapter = ProductAdapter(showDetails)
             binding.recyclerView.adapter = adapter
             binding.title.text = item.title
             when (val product = item.products) {
