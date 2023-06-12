@@ -21,7 +21,6 @@ class ProductViewHolder(private val binding: HomeItemBinding, private val showDe
         binding.apply {
             tvPrice.text = item.price.asPrice()
             tvAdapter.text = item.name
-            ratingBar.rating = item.averageRating?.toFloat() ?: 0.0F
             imageViewAdapter.setImageResource(R.drawable.ic_launcher_background)
             root.loadImage(imageViewAdapter, item.images?.first()?.src)
         }

@@ -7,74 +7,65 @@
 
     </data>
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="180dp"
-        android:layout_height="330dp"
-        android:layout_margin="5dp"
-        app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="@dimen/cardview_compat_inset_shadow">
+    <androidx.cardview.widget.CardView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:padding="0dp"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|center_vertical">
+            android:layout_height="400dp"
+            android:background="@drawable/custom_card_background"
+            android:orientation="vertical">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageView_adapter"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_margin="15dp"
-                android:padding="10dp"
-                android:scaleType="centerCrop"
+                android:padding="5dp"
+                android:scaleType="centerInside"
                 android:src="@drawable/ic_launcher_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <RatingBar
-                android:id="@+id/rating_bar"
-                style="@style/Widget.AppCompat.RatingBar.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                app:layout_constraintBottom_toTopOf="@+id/tv_price"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_adapter"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/tv_price"
-                android:layout_width="130dp"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
-                android:layout_marginStart="5dp"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="23000000 تومان"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
             <TextView
                 android:id="@+id/tv_adapter"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:gravity="top|start"
-                android:maxLines="2"
+                android:gravity="center"
+                android:maxLines="3"
                 android:padding="4dp"
                 android:text="لویزیون ال ای دی هوشمند سامسونگ مدل 82NU8900"
                 android:textColor="#465a65"
-                android:textSize="14sp"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/imageView_adapter"
                 app:layout_constraintStart_toStartOf="@+id/imageView_adapter"
                 app:layout_constraintTop_toBottomOf="@+id/imageView_adapter"
                 tools:ignore="MissingConstraints" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|bottom"
+                android:paddingBottom="10dp"
+                android:text="23000000 تومان"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 </layout>
