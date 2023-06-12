@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.core.common.model.models.details.ProductDetails
 import com.core.common.ui.ui.BaseFragment
+import com.core.common.ui.util.asPrice
 import com.domain.commonmain.interact_result.InteractResultState
 import com.feature.details.DetailsActivity.Companion.PRODUCT_ID
 import com.feature.details.databinding.FragmentDetailsBinding
@@ -93,7 +94,7 @@ class DetailsFragment : BaseFragment() {
         adapter.submitList(productsItem.images)
         detailsBinding.apply {
             tvTitle.text = productsItem.name
-            tvPrice.text = "${productsItem.price}تومان"
+            tvPrice.text = productsItem.price.asPrice()
             tvDescription.text = productsItem.description
             ratingBar.rating = productsItem.averageRating?.toFloat() ?: 0.0f
         }

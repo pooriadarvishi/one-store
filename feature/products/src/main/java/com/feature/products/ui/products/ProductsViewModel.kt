@@ -1,5 +1,6 @@
 package com.feature.products.ui.products
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.core.common.enums.common.OrderingFilters
 import com.core.common.enums.common.asString
@@ -38,8 +39,11 @@ class ProductsViewModel @Inject constructor(
     operator fun invoke() {
         job?.cancel()
         job = if (categoryId != 0) {
+            Log.e("Pooria", "invoke: Cat ", )
             getListProductByCategory()
         } else {
+            Log.e("Pooria", "invoke: Mat", )
+
             getListProductByOrder()
         }
     }
@@ -47,7 +51,7 @@ class ProductsViewModel @Inject constructor(
     fun nextPage() {
         if (!isLoading) {
             page++
-            getListProductByCategory()
+            invoke()
             loading()
         }
     }
