@@ -8,6 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
@@ -22,7 +23,7 @@ abstract class BaseFragment : Fragment() {
     protected fun <T> observe(flow: StateFlow<T>, action: (T) -> Unit) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                flow.collect {
+                flow.collectLatest {
                     action(it)
                 }
             }
