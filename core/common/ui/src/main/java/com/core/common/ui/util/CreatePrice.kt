@@ -5,6 +5,6 @@ import java.util.Locale
 
 fun String?.asPrice(): String {
     val formatter = NumberFormat.getInstance(Locale("en"))
-    return if (!this.isNullOrEmpty()) "${formatter.format(this.toFloat().times(10))} ﷼"
+    return if (!isNullOrEmpty()) "${formatter.format(toFloat().times(10))} ﷼"
     else "رایگان"
 }

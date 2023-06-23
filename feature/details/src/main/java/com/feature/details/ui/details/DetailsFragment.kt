@@ -1,10 +1,10 @@
 package com.feature.details.ui.details
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isInvisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.core.common.model.models.details.ProductDetails
 import com.core.common.ui.ui.BaseFragment
 import com.core.common.ui.util.asPrice
+import com.core.common.ui.util.asRating
 import com.domain.commonmain.interact_result.InteractResultState
 import com.feature.details.DetailsActivity.Companion.PRODUCT_ID
 import com.feature.details.databinding.FragmentDetailsBinding
@@ -62,41 +63,41 @@ class DetailsFragment : BaseFragment() {
 
     private fun setAdapter() {
         adapter = ImageAdapter()
-        detailsBinding.recyclerViewGallery.adapter = adapter
+        detailsBinding.rvImages.adapter = adapter
     }
 
     override fun bindLoading() {
-        detailsBinding.apply {
-            hostError.isInvisible = true
-            hostDetails.isInvisible = true
-            progressBar.isInvisible = false
-        }
+//        detailsBinding.apply {
+//            hostError.isInvisible = true
+//            hostDetails.isInvisible = true
+//            progressBar.isInvisible = false
+//        }
     }
 
     override fun bindSuccess() {
-        detailsBinding.apply {
-            hostError.isInvisible = true
-            hostDetails.isInvisible = false
-            progressBar.isInvisible = true
-        }
+//        detailsBinding.apply {
+//            hostError.isInvisible = true
+//            hostDetails.isInvisible = false
+//            progressBar.isInvisible = true
+//        }
     }
 
     override fun bindFail() {
-        detailsBinding.apply {
-            hostError.isInvisible = false
-            hostDetails.isInvisible = true
-            progressBar.isInvisible = true
-        }
+//        detailsBinding.apply {
+//            hostError.isInvisible = false
+//            hostDetails.isInvisible = true
+//            progressBar.isInvisible = true
+//        }
     }
 
 
     private fun bind(productsItem: ProductDetails) {
         adapter.submitList(productsItem.images)
         detailsBinding.apply {
-            tvTitle.text = productsItem.name
-            tvPrice.text = productsItem.price.asPrice()
+            tvProductName.text = productsItem.name
+            tvProductPrice.text = productsItem.price.asPrice()
             tvDescription.text = productsItem.description
-            ratingBar.rating = productsItem.averageRating?.toFloat() ?: 0.0f
+            ratingBar.rating = productsItem.averageRating.asRating()
         }
     }
 

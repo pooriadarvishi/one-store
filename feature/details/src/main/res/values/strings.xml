@@ -3,4 +3,6 @@
     <string name="description">description</string>
     <string name="name">Name</string>
     <string name="connection_failed">مشکل در برقراری ارتباط :)</string>
+    <string name="product_description">مشخصات</string>
+    <string name="product_buy">افزودن به سبد</string>
 </resources>
